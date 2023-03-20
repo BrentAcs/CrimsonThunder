@@ -26,6 +26,8 @@ public partial class Form1 : Form
 
    private void Form1_Load(object sender, EventArgs e)
    {
+      // Reference: https://cmatskas.com/modern-authentication-with-azure-ad-for-winforms-native-apps-2/
+
       // Application(client) ID: 63fe056e - a329 - 4a03 - ab34 - 47eff3e0a5c9
       // Object ID: 14fd876f - 713f - 4996 - 8360 - df7d306f48f7
       // Directory(tenant) ID: acd5fbae - 2480 - 4871 - bea0 - 2c512024a440
@@ -37,6 +39,7 @@ public partial class Form1 : Form
       _publicClientApp = PublicClientApplicationBuilder.Create(ClientId)
          .WithRedirectUri("https://login.microsoftonline.com/common/oauth2/nativeclient")
          .WithAuthority(AzureCloudInstance.AzurePublic, Tenant)
+         .WithRedirectUri("http://localhost")
          .Build();
       TokenCacheHelper.EnableSerialization(_publicClientApp.UserTokenCache);
       //loginButton.Enabled = _currentUserAccount is null;
