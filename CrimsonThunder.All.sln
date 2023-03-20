@@ -1,14 +1,31 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33209.295
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "apps", "apps", "{41B305CC-1CC5-4667-AEA7-788DCC3A2CAB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "pocs", "pocs", "{C9F00DC5-B880-4E6D-B902-51C74472D85F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{15788C5D-4B56-4424-8B0B-801928119042}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinFormsOAuthPoc", "pocs\WinFormsOAuthPoc\WinFormsOAuthPoc.csproj", "{47F607B8-FCBC-4729-8F9F-464E7B6E0157}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{47F607B8-FCBC-4729-8F9F-464E7B6E0157}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47F607B8-FCBC-4729-8F9F-464E7B6E0157}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47F607B8-FCBC-4729-8F9F-464E7B6E0157}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47F607B8-FCBC-4729-8F9F-464E7B6E0157}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{47F607B8-FCBC-4729-8F9F-464E7B6E0157} = {41B305CC-1CC5-4667-AEA7-788DCC3A2CAB}
 	EndGlobalSection
 EndGlobal
