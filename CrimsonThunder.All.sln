@@ -11,11 +11,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{15788C5D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinFormsOAuthPoc", "pocs\WinFormsOAuthPoc\WinFormsOAuthPoc.csproj", "{47F607B8-FCBC-4729-8F9F-464E7B6E0157}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkerServicePoc", "pocs\WorkerServicePoc\WorkerServicePoc.csproj", "{9378EFEF-0936-4FAB-AF24-37BE8272605B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkerServicePoc", "pocs\WorkerServicePoc\WorkerServicePoc.csproj", "{9378EFEF-0936-4FAB-AF24-37BE8272605B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrimsonThunder.Common", "apps\CrimsonThunder.Common\CrimsonThunder.Common.csproj", "{A5A980AB-18F3-4201-B434-39C2E9B8297D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrimsonThunder.Common", "apps\CrimsonThunder.Common\CrimsonThunder.Common.csproj", "{A5A980AB-18F3-4201-B434-39C2E9B8297D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MongoPoc", "pocs\MongoPoc\MongoPoc.csproj", "{AC862121-A196-4BFF-9181-CAD24EB29E4E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MongoPoc", "pocs\MongoPoc\MongoPoc.csproj", "{AC862121-A196-4BFF-9181-CAD24EB29E4E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CraftingPoc", "pocs\CraftingPoc\CraftingPoc.csproj", "{C9A961ED-DA3E-4060-869C-14197BE38A14}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{AC862121-A196-4BFF-9181-CAD24EB29E4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AC862121-A196-4BFF-9181-CAD24EB29E4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AC862121-A196-4BFF-9181-CAD24EB29E4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9A961ED-DA3E-4060-869C-14197BE38A14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9A961ED-DA3E-4060-869C-14197BE38A14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9A961ED-DA3E-4060-869C-14197BE38A14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9A961ED-DA3E-4060-869C-14197BE38A14}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,5 +54,6 @@ Global
 		{9378EFEF-0936-4FAB-AF24-37BE8272605B} = {C9F00DC5-B880-4E6D-B902-51C74472D85F}
 		{A5A980AB-18F3-4201-B434-39C2E9B8297D} = {41B305CC-1CC5-4667-AEA7-788DCC3A2CAB}
 		{AC862121-A196-4BFF-9181-CAD24EB29E4E} = {C9F00DC5-B880-4E6D-B902-51C74472D85F}
+		{C9A961ED-DA3E-4060-869C-14197BE38A14} = {C9F00DC5-B880-4E6D-B902-51C74472D85F}
 	EndGlobalSection
 EndGlobal
