@@ -3,10 +3,19 @@ using MongoDB.Bson;
 
 namespace SeeYa.Core;
 
+[BsonCollection("Stories")]
+public class Story
+{
+   public ObjectId Id { get; set; }
+   public string Title { get; set; } = string.Empty;
+   public ObjectId InitialNodeId { get; set; }
+}
+
 [BsonCollection("StoryNodes")]
 public class StoryNode
 {
    public ObjectId Id { get; set; }
+   public ObjectId StoryId { get; set; }
    public string NarrativeText { get; set; } = string.Empty;
    public List<StoreNodeChoice> Choices { get; set; } = new();
 

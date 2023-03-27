@@ -1,6 +1,28 @@
-﻿namespace SeeYa.Core;
+﻿using MongoDB.Bson;
 
-public class IStoryNodeRepo
+namespace SeeYa.Core;
+
+public interface IStoryNodeRepo
 {
-   private IEnumerable<StoryNode> All { get; }
+   IEnumerable<StoryNode> All { get; }
+
+   IEnumerable<StoryNode> GetAllForStory(ObjectId storyId);
+}
+
+public class TestStoryNodeRepo : IStoryNodeRepo
+{
+   private readonly List<StoryNode> _storyNodes;
+
+   public TestStoryNodeRepo()
+   {
+      _storyNodes = new List<StoryNode>(SeedData.StoryNodes);
+   }
+
+   public IEnumerable<StoryNode> All => _storyNodes;
+
+   public IEnumerable<StoryNode> GetAllForStory(ObjectId storyId)
+   { 
+      throw new NotImplementedException();
+      //var nodes = _storyNodes.Where( _ => _.)
+   }
 }
