@@ -46,5 +46,17 @@ namespace SeeYa.Studio {
                 this["MainForm_Size"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int MainForm_LastStoryIndex {
+            get {
+                return ((int)(this["MainForm_LastStoryIndex"]));
+            }
+            set {
+                this["MainForm_LastStoryIndex"] = value;
+            }
+        }
     }
 }

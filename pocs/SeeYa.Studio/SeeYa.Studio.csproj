@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SeeYa.Core\SeeYa.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="AppSettings.Designer.cs">
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <AutoGen>True</AutoGen>

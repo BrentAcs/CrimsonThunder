@@ -30,13 +30,15 @@
       {
             this.mainToolStrip = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+            this.storiesToolStripComboBox = new System.Windows.Forms.ToolStripComboBox();
             this.mainToolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainToolStrip
             // 
             this.mainToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripLabel1});
+            this.toolStripLabel1,
+            this.storiesToolStripComboBox});
             this.mainToolStrip.Location = new System.Drawing.Point(0, 0);
             this.mainToolStrip.Name = "mainToolStrip";
             this.mainToolStrip.Size = new System.Drawing.Size(800, 25);
@@ -48,6 +50,12 @@
             this.toolStripLabel1.Name = "toolStripLabel1";
             this.toolStripLabel1.Size = new System.Drawing.Size(45, 22);
             this.toolStripLabel1.Text = "Stories:";
+            // 
+            // storiesToolStripComboBox
+            // 
+            this.storiesToolStripComboBox.Name = "storiesToolStripComboBox";
+            this.storiesToolStripComboBox.Size = new System.Drawing.Size(196, 25);
+            this.storiesToolStripComboBox.SelectedIndexChanged += new System.EventHandler(this.storiesToolStripComboBox_SelectedIndexChanged);
             // 
             // MainForm
             // 
@@ -70,5 +78,6 @@
 
       private ToolStrip mainToolStrip;
       private ToolStripLabel toolStripLabel1;
+      private ToolStripComboBox storiesToolStripComboBox;
    }
 }

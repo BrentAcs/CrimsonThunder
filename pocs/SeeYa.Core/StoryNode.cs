@@ -9,6 +9,8 @@ public class Story
    public ObjectId Id { get; set; }
    public string Title { get; set; } = string.Empty;
    public ObjectId InitialNodeId { get; set; }
+
+   public override string ToString() => Title;
 }
 
 [BsonCollection("StoryNodes")]
