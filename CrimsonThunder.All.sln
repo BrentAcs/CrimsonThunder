@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeeYa.Core", "pocs\SeeYa.Co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeeYa.Studio", "pocs\SeeYa.Studio\SeeYa.Studio.csproj", "{E639F6E3-46A4-4B51-A503-73054A4B25C5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeeYa.WebStudio", "pocs\SeeYa.WebStudio\SeeYa.WebStudio.csproj", "{4DC175EA-6EF1-4E7F-99CE-25B28BAF667A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{E639F6E3-46A4-4B51-A503-73054A4B25C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E639F6E3-46A4-4B51-A503-73054A4B25C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E639F6E3-46A4-4B51-A503-73054A4B25C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DC175EA-6EF1-4E7F-99CE-25B28BAF667A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DC175EA-6EF1-4E7F-99CE-25B28BAF667A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DC175EA-6EF1-4E7F-99CE-25B28BAF667A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DC175EA-6EF1-4E7F-99CE-25B28BAF667A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -90,6 +96,7 @@ Global
 		{33BD28F3-B222-4C4B-BB8C-41BE062C005F} = {C9F00DC5-B880-4E6D-B902-51C74472D85F}
 		{09A31531-8744-44BD-9B31-959A7379C149} = {C9F00DC5-B880-4E6D-B902-51C74472D85F}
 		{E639F6E3-46A4-4B51-A503-73054A4B25C5} = {C9F00DC5-B880-4E6D-B902-51C74472D85F}
+		{4DC175EA-6EF1-4E7F-99CE-25B28BAF667A} = {C9F00DC5-B880-4E6D-B902-51C74472D85F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D568EF1A-57B8-4AFF-ADF4-A9FDEF5816FD}
