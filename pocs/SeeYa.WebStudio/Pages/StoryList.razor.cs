@@ -17,8 +17,8 @@ public partial class StoryList
       Stories = (await StoryDataService.GetAll().ConfigureAwait(false)).ToList();
    }
 
-   private readonly float itemHeight = 50;
-   private int _totalNumberOfStories = 1000;
+   private readonly float itemHeight = 10;
+   private int _totalNumberOfStories = 10;
    
    public async ValueTask<ItemsProviderResult<Story>> LoadStories(ItemsProviderRequest request)
    {

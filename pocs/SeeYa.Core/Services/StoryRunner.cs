@@ -38,7 +38,7 @@ public class StoryRunner : IStoryRunner
    // NOTE: To Task<>
    public void Start(string storyId)
    {
-      CurrentStory = _storyRepo.GetAll().Result.FirstOrDefault(_ => _.Id.Equals(ObjectId.Parse(storyId)));
+      CurrentStory = _storyRepo.GetAll().Result.FirstOrDefault(_ => _.Id.Equals(new ObjectId(storyId)));
       CurrentStoryNode = _storyNodeRepo.Get(storyId, CurrentStory.InitialNodeId.ToString());
       CallObservers();
    }

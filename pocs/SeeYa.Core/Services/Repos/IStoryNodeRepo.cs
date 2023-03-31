@@ -23,13 +23,13 @@ public class TestStoryNodeRepo : IStoryNodeRepo
 
    public IEnumerable<StoryNode> GetAllForStory(string storyId)
    {
-      var nodes = _storyNodes.Where(_ => _.StoryId.Equals(ObjectId.Parse(storyId)));
+      var nodes = _storyNodes.Where(_ => _.StoryId.Equals(new ObjectId(storyId)));
       return nodes;
    }
 
    public StoryNode? Get(string storyId, string storyNodeId)
    {
-      var node = _storyNodes.FirstOrDefault(_ => _.StoryId.Equals(ObjectId.Parse(storyId)) && _.Id.Equals(ObjectId.Parse(storyNodeId)));
+      var node = _storyNodes.FirstOrDefault(_ => _.StoryId.Equals(new ObjectId(storyId)) && _.Id.Equals(new ObjectId(storyNodeId)));
       return node;
    }
 }
