@@ -39,6 +39,11 @@ public class StoryRunner : IStoryRunner
    {
       CurrentStory = _storyRepo.All.FirstOrDefault(_ => _.Id.Equals(ObjectId.Parse(storyId)));
       CurrentStoryNode = _storyNodeRepo.Get(storyId, CurrentStory.InitialNodeId.ToString());
+
+      foreach (var observer in _observers)
+      {
+         observer.OnNext(CurrentStoryNode);
+      }
    }
 
    public void Next(string nextStoryNodeId) =>

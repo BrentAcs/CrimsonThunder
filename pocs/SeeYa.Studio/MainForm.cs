@@ -1,4 +1,6 @@
-﻿namespace SeeYa.Studio;
+﻿using SeeYa.Core;
+
+namespace SeeYa.Studio;
 
 public partial class MainForm : Form
 {
@@ -14,6 +16,8 @@ public partial class MainForm : Form
 
       storiesToolStripComboBox.Items.AddRange(Globals.Repos.StoryRepo.All.ToArray());
       storiesToolStripComboBox.SelectedIndex = AppSettings.Default.MainForm_LastStoryIndex;
+
+      RunStory();
    }
 
    private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -25,6 +29,17 @@ public partial class MainForm : Form
 
    private void storiesToolStripComboBox_SelectedIndexChanged(object sender, EventArgs e)
    {
-      var test =storiesToolStripComboBox.SelectedIndex;
+      var test = storiesToolStripComboBox.SelectedIndex;
+   }
+
+   private void runStoryToolStripButton_Click(object sender, EventArgs e) => RunStory();
+
+   private void RunStory()
+   {
+      var storyId = ((Story)storiesToolStripComboBox.SelectedItem).Id;
+
+      var runnerForm = new RunnerForm();
+      runnerForm.ShowDialog(this, storyId.ToString());
+
    }
 }
