@@ -25,11 +25,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CraftStudioPoc", "pocs\Craf
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CraftStudioPoc.Shared", "pocs\CraftStudioPoc.Shared\CraftStudioPoc.Shared.csproj", "{33BD28F3-B222-4C4B-BB8C-41BE062C005F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeeYa.Core", "pocs\SeeYa.Core\SeeYa.Core.csproj", "{09A31531-8744-44BD-9B31-959A7379C149}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeeYa.Core", "pocs\SeeYa.Core\SeeYa.Core.csproj", "{09A31531-8744-44BD-9B31-959A7379C149}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeeYa.Studio", "pocs\SeeYa.Studio\SeeYa.Studio.csproj", "{E639F6E3-46A4-4B51-A503-73054A4B25C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeeYa.Studio", "pocs\SeeYa.Studio\SeeYa.Studio.csproj", "{E639F6E3-46A4-4B51-A503-73054A4B25C5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeeYa.WebStudio", "pocs\SeeYa.WebStudio\SeeYa.WebStudio.csproj", "{4DC175EA-6EF1-4E7F-99CE-25B28BAF667A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeeYa.WebStudio", "pocs\SeeYa.WebStudio\SeeYa.WebStudio.csproj", "{4DC175EA-6EF1-4E7F-99CE-25B28BAF667A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeeYa.CUI", "procs\SeeYa.CUI\SeeYa.CUI.csproj", "{2EE0E871-64EA-4D8B-BF97-4E9956D1BB2F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +83,10 @@ Global
 		{4DC175EA-6EF1-4E7F-99CE-25B28BAF667A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4DC175EA-6EF1-4E7F-99CE-25B28BAF667A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4DC175EA-6EF1-4E7F-99CE-25B28BAF667A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2EE0E871-64EA-4D8B-BF97-4E9956D1BB2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EE0E871-64EA-4D8B-BF97-4E9956D1BB2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EE0E871-64EA-4D8B-BF97-4E9956D1BB2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EE0E871-64EA-4D8B-BF97-4E9956D1BB2F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -97,6 +103,7 @@ Global
 		{09A31531-8744-44BD-9B31-959A7379C149} = {C9F00DC5-B880-4E6D-B902-51C74472D85F}
 		{E639F6E3-46A4-4B51-A503-73054A4B25C5} = {C9F00DC5-B880-4E6D-B902-51C74472D85F}
 		{4DC175EA-6EF1-4E7F-99CE-25B28BAF667A} = {C9F00DC5-B880-4E6D-B902-51C74472D85F}
+		{2EE0E871-64EA-4D8B-BF97-4E9956D1BB2F} = {C9F00DC5-B880-4E6D-B902-51C74472D85F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D568EF1A-57B8-4AFF-ADF4-A9FDEF5816FD}

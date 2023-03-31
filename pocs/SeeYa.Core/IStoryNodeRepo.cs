@@ -6,7 +6,8 @@ public interface IStoryNodeRepo
 {
    IEnumerable<StoryNode> All { get; }
 
-   IEnumerable<StoryNode> GetAllForStory(ObjectId storyId);
+   IEnumerable<StoryNode> GetAllForStory(string storyId);
+   StoryNode? Get(string storyId, string storyNodeId);
 }
 
 public class TestStoryNodeRepo : IStoryNodeRepo
@@ -20,9 +21,15 @@ public class TestStoryNodeRepo : IStoryNodeRepo
 
    public IEnumerable<StoryNode> All => _storyNodes;
 
-   public IEnumerable<StoryNode> GetAllForStory(ObjectId storyId)
-   { 
-      throw new NotImplementedException();
-      //var nodes = _storyNodes.Where( _ => _.)
+   public IEnumerable<StoryNode> GetAllForStory(string storyId)
+   {
+      var nodes = _storyNodes.Where(_ => _.StoryId.Equals(ObjectId.Parse(storyId)));
+      return nodes;
+   }
+
+   public StoryNode? Get(string storyId, string storyNodeId)
+   {
+      var node = _storyNodes.FirstOrDefault(_ => _.StoryId.Equals(ObjectId.Parse(storyId)) && _.Id.Equals(ObjectId.Parse(storyNodeId)));
+      return node;
    }
 }
