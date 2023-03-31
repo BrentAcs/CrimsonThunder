@@ -1,12 +1,13 @@
 ﻿using System.Diagnostics;
 using SeeYa.Core;
+using Control = System.Windows.Forms.Control;
 
 namespace SeeYa.Studio;
 
 public partial class RunnerForm : Form, IObserver<StoryNode>
 {
    private readonly IStoryRunner _runner = new StoryRunner(Globals.Repos.StoryRepo, Globals.Repos.StoryNodeRepo);
-   
+
    public RunnerForm()
    {
       InitializeComponent();
@@ -34,10 +35,33 @@ public partial class RunnerForm : Form, IObserver<StoryNode>
       Debug.WriteLine($"{nameof(OnError)}");
    }
 
+   public void OnNext(StoryNode storyNode) => SetupUI(storyNode);
 
-   public void OnNext(StoryNode value)
+   private void ChoiceClicked(object? sender, EventArgs e)
    {
-      Debug.WriteLine($"{nameof(OnNext)}");
+      var choice = (sender as Control)?.Tag as StoreNodeChoice;
+      if (choice == null)
+         return;
+
+      _runner.Next(choice.DestinationId.ToString());
    }
 
+   private void SetupUI(StoryNode storyNode)
+   {
+      mainSplitContainer.Panel2.Controls.Clear();
+      narrativeTextBox.Text = storyNode.NarrativeText;
+
+      foreach (var choice in storyNode.Choices)
+      {
+         var choiceButton = new Button
+         {
+            Text = choice.ChoiceText,
+            Tag = choice,
+            Dock = DockStyle.Bottom,
+            Height = 32,
+         };
+         choiceButton.Click += ChoiceClicked;
+         mainSplitContainer.Panel2.Controls.Add(choiceButton);
+      }
+   }
 }

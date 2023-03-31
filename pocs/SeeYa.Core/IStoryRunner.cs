@@ -39,15 +39,22 @@ public class StoryRunner : IStoryRunner
    {
       CurrentStory = _storyRepo.All.FirstOrDefault(_ => _.Id.Equals(ObjectId.Parse(storyId)));
       CurrentStoryNode = _storyNodeRepo.Get(storyId, CurrentStory.InitialNodeId.ToString());
+      CallObservers();
+   }
 
+   public void Next(string nextStoryNodeId)
+   {
+      CurrentStoryNode = _storyNodeRepo.Get(CurrentStory.Id.ToString(), nextStoryNodeId);
+      CallObservers();
+   }
+
+   private void CallObservers()
+   {
       foreach (var observer in _observers)
       {
          observer.OnNext(CurrentStoryNode);
       }
    }
-
-   public void Next(string nextStoryNodeId) =>
-      throw new NotImplementedException();
 
    private class Unsubscriber : IDisposable
    {
