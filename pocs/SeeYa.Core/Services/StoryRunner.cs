@@ -1,6 +1,7 @@
-﻿using MongoDB.Bson;
+﻿using SeeYa.Core.Models;
+using SeeYa.Core.Services.Repos;
 
-namespace SeeYa.Core;
+namespace SeeYa.Core.Services;
 
 public interface IStoryRunner : IObservable<StoryNode?>
 {
@@ -9,7 +10,6 @@ public interface IStoryRunner : IObservable<StoryNode?>
 
    void Start(string storyId);
    void Next(string nextStoryNodeId);
-
 }
 
 public class StoryRunner : IStoryRunner
@@ -35,9 +35,10 @@ public class StoryRunner : IStoryRunner
       return new Unsubscriber(_observers, observer);
    }
 
+   // NOTE: To Task<>
    public void Start(string storyId)
    {
-      CurrentStory = _storyRepo.All.FirstOrDefault(_ => _.Id.Equals(ObjectId.Parse(storyId)));
+      CurrentStory = _storyRepo.GetAll().Result.FirstOrDefault(_ => _.Id.Equals(ObjectId.Parse(storyId)));
       CurrentStoryNode = _storyNodeRepo.Get(storyId, CurrentStory.InitialNodeId.ToString());
       CallObservers();
    }

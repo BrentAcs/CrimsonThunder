@@ -1,6 +1,6 @@
-﻿using MongoDB.Bson;
+﻿using SeeYa.Core.Models;
 
-namespace SeeYa.Core;
+namespace SeeYa.Core.Services.Repos;
 
 public interface IStoryNodeRepo
 {

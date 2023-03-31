@@ -3,6 +3,9 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SeeYa.Core;
+using SeeYa.Core.Models;
+using SeeYa.Core.Services;
+using SeeYa.Core.Services.Repos;
 
 IHost host = Host.CreateDefaultBuilder(args)
    .ConfigureServices(services =>

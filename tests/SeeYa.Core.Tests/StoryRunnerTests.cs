@@ -1,5 +1,7 @@
 using FluentAssertions;
 using MongoDB.Bson;
+using SeeYa.Core.Services;
+using SeeYa.Core.Services.Repos;
 
 namespace SeeYa.Core.Tests;
 

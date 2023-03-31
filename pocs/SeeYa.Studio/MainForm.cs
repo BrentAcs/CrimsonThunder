@@ -1,4 +1,5 @@
 ﻿using SeeYa.Core;
+using SeeYa.Core.Models;
 
 namespace SeeYa.Studio;
 
@@ -14,7 +15,7 @@ public partial class MainForm : Form
       Location = AppSettings.Default.MainForm_Location;
       Size = AppSettings.Default.MainForm_Size;
 
-      storiesToolStripComboBox.Items.AddRange(Globals.Repos.StoryRepo.All.ToArray());
+      storiesToolStripComboBox.Items.AddRange(Globals.Repos.StoryRepo.GetAll().Result.ToArray());
       storiesToolStripComboBox.SelectedIndex = AppSettings.Default.MainForm_LastStoryIndex;
 
       RunStory();

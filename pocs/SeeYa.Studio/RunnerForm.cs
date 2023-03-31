@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics;
 using SeeYa.Core;
+using SeeYa.Core.Models;
+using SeeYa.Core.Services;
 using Control = System.Windows.Forms.Control;
 
 namespace SeeYa.Studio;

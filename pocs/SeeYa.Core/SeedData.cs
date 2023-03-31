@@ -1,4 +1,4 @@
-﻿using MongoDB.Bson;
+﻿using SeeYa.Core.Models;
 
 namespace SeeYa.Core;
 
