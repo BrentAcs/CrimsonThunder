@@ -5,7 +5,7 @@ using SeeYa.Core.Services;
 
 namespace SeeYa.WebStudio.Pages;
 
-public partial class StoryList
+public partial class StoryListView
 {
    [Inject]
    public IStoryDataService StoryDataService { get; set; }

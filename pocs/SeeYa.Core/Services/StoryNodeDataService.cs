@@ -2,10 +2,8 @@
 
 public interface IStoryNodeDataService
 {
-   
 }
 
-public class StoryNodeDataService     :IStoryNodeDataService
+public class StoryNodeDataService : IStoryNodeDataService
 {
-   
 }
