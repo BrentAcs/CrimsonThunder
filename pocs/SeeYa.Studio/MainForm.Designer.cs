@@ -28,50 +28,59 @@
       /// </summary>
       private void InitializeComponent()
       {
-            this.mainToolStrip = new System.Windows.Forms.ToolStrip();
-            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
-            this.storiesToolStripComboBox = new System.Windows.Forms.ToolStripComboBox();
-            this.mainToolStrip.SuspendLayout();
-            this.SuspendLayout();
-            // 
-            // mainToolStrip
-            // 
-            this.mainToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripLabel1,
-            this.storiesToolStripComboBox});
-            this.mainToolStrip.Location = new System.Drawing.Point(0, 0);
-            this.mainToolStrip.Name = "mainToolStrip";
-            this.mainToolStrip.Size = new System.Drawing.Size(800, 25);
-            this.mainToolStrip.TabIndex = 0;
-            this.mainToolStrip.Text = "toolStrip1";
-            // 
-            // toolStripLabel1
-            // 
-            this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(45, 22);
-            this.toolStripLabel1.Text = "Stories:";
-            // 
-            // storiesToolStripComboBox
-            // 
-            this.storiesToolStripComboBox.Name = "storiesToolStripComboBox";
-            this.storiesToolStripComboBox.Size = new System.Drawing.Size(196, 25);
-            this.storiesToolStripComboBox.SelectedIndexChanged += new System.EventHandler(this.storiesToolStripComboBox_SelectedIndexChanged);
-            // 
-            // MainForm
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.mainToolStrip);
-            this.Name = "MainForm";
-            this.Text = "See Ya Studio";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
-            this.Load += new System.EventHandler(this.MainForm_Load);
-            this.mainToolStrip.ResumeLayout(false);
-            this.mainToolStrip.PerformLayout();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+         var resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+         mainToolStrip = new ToolStrip();
+         toolStripLabel1 = new ToolStripLabel();
+         storiesToolStripComboBox = new ToolStripComboBox();
+         runStoryToolStripButton = new ToolStripButton();
+         mainToolStrip.SuspendLayout();
+         SuspendLayout();
+         // 
+         // mainToolStrip
+         // 
+         mainToolStrip.Items.AddRange(new ToolStripItem[] { toolStripLabel1, storiesToolStripComboBox, runStoryToolStripButton });
+         mainToolStrip.Location = new Point(0, 0);
+         mainToolStrip.Name = "mainToolStrip";
+         mainToolStrip.Size = new Size(800, 25);
+         mainToolStrip.TabIndex = 0;
+         mainToolStrip.Text = "toolStrip1";
+         // 
+         // toolStripLabel1
+         // 
+         toolStripLabel1.Name = "toolStripLabel1";
+         toolStripLabel1.Size = new Size(45, 22);
+         toolStripLabel1.Text = "Stories:";
+         // 
+         // storiesToolStripComboBox
+         // 
+         storiesToolStripComboBox.Name = "storiesToolStripComboBox";
+         storiesToolStripComboBox.Size = new Size(196, 25);
+         storiesToolStripComboBox.SelectedIndexChanged += storiesToolStripComboBox_SelectedIndexChanged;
+         // 
+         // runStoryToolStripButton
+         // 
+         runStoryToolStripButton.DisplayStyle = ToolStripItemDisplayStyle.Text;
+         runStoryToolStripButton.Image = (Image)resources.GetObject("runStoryToolStripButton.Image");
+         runStoryToolStripButton.ImageTransparentColor = Color.Magenta;
+         runStoryToolStripButton.Name = "runStoryToolStripButton";
+         runStoryToolStripButton.Size = new Size(32, 22);
+         runStoryToolStripButton.Text = "Run";
+         runStoryToolStripButton.Click += runStoryToolStripButton_Click;
+         // 
+         // MainForm
+         // 
+         AutoScaleDimensions = new SizeF(7F, 15F);
+         AutoScaleMode = AutoScaleMode.Font;
+         ClientSize = new Size(800, 450);
+         Controls.Add(mainToolStrip);
+         Name = "MainForm";
+         Text = "See Ya Studio";
+         FormClosed += MainForm_FormClosed;
+         Load += MainForm_Load;
+         mainToolStrip.ResumeLayout(false);
+         mainToolStrip.PerformLayout();
+         ResumeLayout(false);
+         PerformLayout();
       }
 
       #endregion
@@ -79,5 +88,6 @@
       private ToolStrip mainToolStrip;
       private ToolStripLabel toolStripLabel1;
       private ToolStripComboBox storiesToolStripComboBox;
+      private ToolStripButton runStoryToolStripButton;
    }
 }

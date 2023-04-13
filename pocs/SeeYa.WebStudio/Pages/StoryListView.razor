@@ -1,0 +1,38 @@
+﻿@page "/StoryListView"
+<h3>StoryList</h3>
+
+@if (Stories == null)
+{
+  <p>
+    <em>Loading...</em>
+  </p>
+}
+else
+{
+  <div class="virtualized">
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+      </tr>
+      </thead>
+      <tbody>
+      <Virtualize ItemsProvider="LoadStories" ItemSize="itemHeight">
+        <ItemContent>
+          <tr @key="context.GetHashCode()">
+            <td>@context.Title</td>
+            <td>@context.Description</td>
+          </tr>
+        </ItemContent>
+        <Placeholder>
+          <tr>
+            <td>Loading...</td>
+            <td>Loading...</td>
+          </tr>
+        </Placeholder>
+      </Virtualize>
+      </tbody>
+    </table>
+  </div>
+}
