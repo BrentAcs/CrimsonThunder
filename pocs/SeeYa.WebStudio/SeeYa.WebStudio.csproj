@@ -16,8 +16,4 @@
      <_ContentIncludedByDefault Remove="wwwroot\sample-data\weather.json" />
    </ItemGroup>
 
-   <ItemGroup>
-     <ProjectReference Include="..\SeeYa.Core\SeeYa.Core.csproj" />
-   </ItemGroup>
-
 </Project>
