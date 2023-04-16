@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Balance.Core\Balance.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="UserSettings.Designer.cs">
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <AutoGen>True</AutoGen>

@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Balance.App", "pocs\Balance
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Balance.Core", "pocs\Balance\Balance.Core\Balance.Core.csproj", "{A6E38350-2D18-480B-A991-C4E0F4831C8B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Balance.Core.Tests", "tests\Balance.Core.Tests\Balance.Core.Tests.csproj", "{0A20CCEC-EA1F-4984-B0A1-C627E5CD976F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,10 @@ Global
 		{A6E38350-2D18-480B-A991-C4E0F4831C8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A6E38350-2D18-480B-A991-C4E0F4831C8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A6E38350-2D18-480B-A991-C4E0F4831C8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A20CCEC-EA1F-4984-B0A1-C627E5CD976F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A20CCEC-EA1F-4984-B0A1-C627E5CD976F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A20CCEC-EA1F-4984-B0A1-C627E5CD976F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A20CCEC-EA1F-4984-B0A1-C627E5CD976F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -51,6 +57,7 @@ Global
 		{9FEA1654-AF6D-4868-B9F8-342C1F782A2F} = {C9F00DC5-B880-4E6D-B902-51C74472D85F}
 		{1754A8AC-7414-4036-ADC3-B12D8109B7A9} = {9FEA1654-AF6D-4868-B9F8-342C1F782A2F}
 		{A6E38350-2D18-480B-A991-C4E0F4831C8B} = {9FEA1654-AF6D-4868-B9F8-342C1F782A2F}
+		{0A20CCEC-EA1F-4984-B0A1-C627E5CD976F} = {15788C5D-4B56-4424-8B0B-801928119042}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D568EF1A-57B8-4AFF-ADF4-A9FDEF5816FD}
