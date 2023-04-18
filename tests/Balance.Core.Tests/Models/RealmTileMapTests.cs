@@ -60,6 +60,28 @@ public class RealmTileMapTests
       sut.NexusRealmCoordinate.Should().Be(new Coordinate(5, 5));
    }
 
+   [Fact]
+   public void QuadrantWidth_Test()
+   {
+      var sut = new RealmTileMap
+      {
+         Tiles = new RealmTile[11, 1]
+      };
+
+      sut.QuadrantWidth.Should().Be(5);
+   }
+
+   [Fact]
+   public void QuadrantHeight_Test()
+   {
+      var sut = new RealmTileMap
+      {
+         Tiles = new RealmTile[1, 11]
+      };
+
+      sut.QuadrantHeight.Should().Be(5);
+   }
+
    [Theory]
    [InlineData(0, 0, false)]
    [InlineData(5, 5, false)] // nexus
@@ -98,6 +120,61 @@ public class RealmTileMapTests
       var result = sut.GetQuadrantHome(quadrant);
 
       result.Should().Be(expected);
+   }
+
+
+   [Theory]
+   [InlineData(0, 0, false)]
+   [InlineData(2, 2, true)]
+   [InlineData(2, 8, true)]
+   [InlineData(8, 2, true)]
+   [InlineData(8, 8, true)]
+   public void IsPlayerRealm_Theories(int col, int row, bool expected)
+   {
+      var coordinate = new Coordinate(col, row);
+      var sut = new RealmTileMap
+      {
+         Tiles = new RealmTile[11, 11]
+      };
+
+      sut.IsPlayerRealm(coordinate).Should().Be(expected);
+   }
+
+
+   [Theory]
+   [InlineData(5, 5, RealmType.Nexus)]
+   [InlineData(2, 2, RealmType.Player)]
+   [InlineData(2, 8, RealmType.Player)]
+   [InlineData(8, 2, RealmType.Player)]
+   [InlineData(8, 8, RealmType.Player)]
+   [InlineData(5, 0, RealmType.Border)]
+   [InlineData(0, 5, RealmType.Border)]
+   [InlineData(0, 0, RealmType.Standard)]
+   public void GetRealmType_Theories(int col, int row, RealmType expected)
+   {
+      var coordinate = new Coordinate(col, row);
+      var sut = new RealmTileMap
+      {
+         Tiles = new RealmTile[11, 11]
+      };
+
+      sut.GetRealmType(coordinate).Should().Be(expected);
+   }
+
+   [Theory]
+   [InlineData(0, 0, RealmTileMapQuadrant.NorthWest, true)]
+   [InlineData(5, 5, RealmTileMapQuadrant.NorthWest, false)]
+
+   [InlineData(6, 6, RealmTileMapQuadrant.SouthEast, true)]
+   public void IsInQuadrant_Theories(int col, int row, RealmTileMapQuadrant quadrant, bool expected)
+   {
+      var coordinate = new Coordinate(col, row);
+      var sut = new RealmTileMap
+      {
+         Tiles = new RealmTile[11, 11]
+      };
+
+      sut.IsInQuadrant(coordinate, quadrant).Should().Be(expected);
    }
 }
 

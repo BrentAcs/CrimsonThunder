@@ -1,4 +1,5 @@
 ﻿using Balance.App.Extensions;
+using Balance.Core.Models;
 
 namespace Balance.App.Controls;
 
@@ -8,6 +9,8 @@ public partial class RealmTileControl : UserControl
    {
       InitializeComponent();
    }
+
+   public RealmTile Tile { get; set; }
 
    protected virtual Color RealmBackColor => Color.White;
 
@@ -28,10 +31,20 @@ public partial class RealmTileControl : UserControl
 
 public class NexusRealmTileControl : RealmTileControl
 {
-   protected override Color RealmBackColor => Color.DimGray;
+   protected override Color RealmBackColor => Color.DarkSlateGray;
 }
 
 public class BorderRealmTileControl : RealmTileControl
 {
-   protected override Color RealmBackColor => Color.DarkGray;
+   protected override Color RealmBackColor => Color.DimGray;
+}
+
+public class StandardRealmTileControl : RealmTileControl
+{
+   protected override Color RealmBackColor => Color.Gray;
+}
+
+public class PlayerRealmTileControl : RealmTileControl
+{
+   protected override Color RealmBackColor => Globals.PlayerContext.GetPlayerColor(Tile.Owner);
 }

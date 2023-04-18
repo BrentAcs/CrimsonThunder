@@ -58,6 +58,7 @@ public partial class RealmTileMapControl : UserControl
          for (int row = 0; row < _map.Height; row++)
          {
             var control = CreateTileControl(col, row);
+            control.Tile = _map.Tiles[col, row];
             control.Location = new Point(col * tileSize.Width, row * tileSize.Height);
             control.Size = tileSize;
 
@@ -68,22 +69,24 @@ public partial class RealmTileMapControl : UserControl
       return controls;
    }
 
-   private RealmTileControl CreateTileControl(int col, int row) => CreateTileControl(new Coordinate(col, row));
+   private RealmTileControl CreateTileControl(Coordinate coordinate) => CreateTileControl(coordinate.Col,coordinate.Row);
 
-   private RealmTileControl CreateTileControl(Coordinate coordinate)
+   private RealmTileControl CreateTileControl(int col, int row)
    {
-      if (_map.IsNexusRealm(coordinate))
+      var tile = _map.Tiles[col, row];
+      switch (tile.RealmType)
       {
-         return new NexusRealmTileControl();
+         case RealmType.Nexus:
+            return new NexusRealmTileControl();
+         case RealmType.Border:
+            return new BorderRealmTileControl();
+         case RealmType.Player:
+            return new PlayerRealmTileControl();
+         case RealmType.Standard:
+            return new StandardRealmTileControl();
+         default:
+            throw new ArgumentOutOfRangeException();
       }
-
-      if (_map.IsBorderRealm(coordinate))
-      {
-         return new BorderRealmTileControl();
-      }
-
-      var control = new RealmTileControl();
-      return control;
    }
 
    private void zoomInButton_Click(object sender, EventArgs e) => ZoomControls(10);
