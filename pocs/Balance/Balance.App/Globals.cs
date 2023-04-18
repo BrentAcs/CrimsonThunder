@@ -8,7 +8,9 @@ public static class Globals
    public static MapViewState MapViewState { get; } = new();
    public static TileRenderer TileRenderer { get; } = new();
    public static PlayerContext PlayerContext { get; } = new();
+
    public static IRealmTileMapFactory MapFactory { get; } = new RealmTileMapFactory();
+   public static IRealmTileMapPopulator MapPopulator { get; } = new RealmTileMapPopulator();
 }
 
 public class MapViewState

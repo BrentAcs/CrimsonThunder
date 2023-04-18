@@ -39,6 +39,7 @@ public class RealmTileMapFactory : IRealmTileMapFactory
    {
       var tile = new RealmTile
       {
+         Coordinate = coordinate,
          RealmType = map.GetRealmType(coordinate),
          Owner = map.GetOwner(coordinate),
       };

@@ -13,6 +13,7 @@ public class RealmTileMap
    public Coordinate NexusRealmCoordinate => new(BorderRealmCol, BorderRealmRow);
    public int QuadrantWidth => (Width / 2);
    public int QuadrantHeight => (Height/ 2);
+   public Delta PlayerRealmDelta => new(QuadrantWidth / 2, QuadrantHeight / 2);
 
    public bool IsNexusRealm(Coordinate coordinate) => coordinate == NexusRealmCoordinate;
 
@@ -34,14 +35,15 @@ public class RealmTileMap
       foreach (var quadrant in Enum.GetValues<RealmTileMapQuadrant>())
       {
          var quadrantHome = GetQuadrantHome(quadrant);
-         var delta = new Delta(QuadrantWidth / 2, QuadrantHeight / 2);
-         var testCoordinate = quadrantHome.Offset(delta);
+         var testCoordinate = quadrantHome.Offset(PlayerRealmDelta);
          if(testCoordinate == coordinate)
             return true;
       }
 
       return false;
    }
+
+   public bool IsStandardRealm(Coordinate coordinate) => !IsNexusRealm(coordinate) && !IsBorderRealm(coordinate) && !IsPlayerRealm(coordinate);
 
    public Coordinate GetQuadrantHome(RealmTileMapQuadrant quadrant) =>
       quadrant switch
@@ -85,4 +87,32 @@ public class RealmTileMap
              (coordinate.Col < home.Col + QuadrantWidth) &&
              (coordinate.Row < home.Row + QuadrantHeight);
    }
+
+   public RealmTileMapQuadrant GetQuadrant(Coordinate coordinate)
+   {
+      foreach (var quadrant in Enum.GetValues<RealmTileMapQuadrant>())
+      {
+         if(IsInQuadrant(coordinate,quadrant))         
+            return quadrant;
+      }
+
+      throw new InvalidOperationException();
+   }
+
+   public bool IsPlayerQuadrant(RealmTileMapQuadrant quadrant, Player player)
+   {
+      var quadrantHome = GetQuadrantHome(quadrant);
+      var testCoordinate = quadrantHome.Offset(PlayerRealmDelta);
+
+      return Tiles[testCoordinate.Col, testCoordinate.Row].Owner == player;
+   }
+
+   public Player GetQuadrantPlayer(RealmTileMapQuadrant quadrant)
+   {
+      var quadrantHome = GetQuadrantHome(quadrant);
+      var testCoordinate = quadrantHome.Offset(PlayerRealmDelta);
+
+      return Tiles[testCoordinate.Col, testCoordinate.Row].Owner;
+   }
+
 }

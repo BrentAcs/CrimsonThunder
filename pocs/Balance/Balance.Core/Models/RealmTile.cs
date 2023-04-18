@@ -30,8 +30,9 @@ public enum RealmType
 
 public class RealmTile : IObservable<RealmTile>, IObserver<Influence>
 {
-   private readonly List<IObserver<RealmTile>> _observers = new();
+   private readonly ObservableImpl<RealmTile> _tileObservables = new();
 
+   public Coordinate Coordinate { get; set; } = Coordinate.Empty;
    public RealmType RealmType { get; set; }
    public Player Owner { get; set; } = Player.None;
    public Influence Influence { get; set; } = new();
@@ -41,35 +42,9 @@ public class RealmTile : IObservable<RealmTile>, IObserver<Influence>
       Influence.Subscribe(this);
    }
 
-   public IDisposable Subscribe(IObserver<RealmTile> observer)
-   {
-      if (!_observers.Contains(observer))
-         _observers.Add(observer);
+   public IDisposable Subscribe(IObserver<RealmTile> observer) => _tileObservables.Subscribe(observer);
 
-      return new UnSubscriber(_observers, observer);
-   }
-
-   private void CallObservers()
-   {
-      foreach (var observer in _observers)
-      {
-         observer.OnNext(this);
-      }
-   }
-
-   private class UnSubscriber : IDisposable
-   {
-      private readonly List<IObserver<RealmTile?>> _observers;
-      private readonly IObserver<RealmTile?> _observer;
-
-      public UnSubscriber(List<IObserver<RealmTile?>> observers, IObserver<RealmTile?> observer)
-      {
-         _observers = observers;
-         _observer = observer;
-      }
-
-      public void Dispose() => _observers?.Remove(_observer);
-   }
+   private void CallObservers() => _tileObservables.Call(this);
 
    public void OnCompleted() => Debug.WriteLine($"{nameof(OnCompleted)}");
 
