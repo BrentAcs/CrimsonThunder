@@ -1,4 +1,6 @@
-﻿namespace Balance.Core.Models;
+﻿using Balance.Core.Models;
+
+namespace Balance.Core.Services;
 
 public interface IRealmTileMapFactory
 {

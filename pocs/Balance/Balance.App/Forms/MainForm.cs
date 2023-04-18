@@ -1,4 +1,5 @@
 ﻿using Balance.Core.Models;
+using Balance.Core.Services;
 
 namespace Balance.App.Forms;
 
@@ -17,6 +18,13 @@ public partial class MainForm : Form
       Size = UserSettings.Default.MainForm_Size;
 
       _map = Globals.MapFactory.Create(new IRealmTileMapFactory.Options());
+
+
+      _map.Tiles[1, 1].Influence.SetAmount(Player.One, 10);
+      _map.Tiles[1, 1].Influence.SetAmount(Player.One, 20);
+      _map.Tiles[1, 1].Influence.SetAmount(Player.One, 30);
+      _map.Tiles[1, 1].Influence.SetAmount(Player.One, 40);
+
       theMapControl.Initialize(_map);
    }
 

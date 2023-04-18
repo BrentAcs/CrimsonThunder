@@ -26,6 +26,8 @@ public partial class RealmTileControl : UserControl
       var rect = new Rectangle(Point.Empty, ClientSize);
       using var pen = new Pen(Color.Black, Globals.TileRenderer.BorderSize);
       g.DrawRoundedRectangle(pen, rect, Globals.TileRenderer.BorderSize);
+
+      influenceLabel.Text = "Boobs";
    }
 }
 

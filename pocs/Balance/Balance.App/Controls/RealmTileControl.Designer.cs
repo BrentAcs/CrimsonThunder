@@ -28,17 +28,31 @@
       /// </summary>
       private void InitializeComponent()
       {
+         influenceLabel = new Label();
          SuspendLayout();
+         // 
+         // influenceLabel
+         // 
+         influenceLabel.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+         influenceLabel.Location = new Point(3, 113);
+         influenceLabel.Name = "influenceLabel";
+         influenceLabel.Size = new Size(144, 23);
+         influenceLabel.TabIndex = 0;
+         influenceLabel.Text = "label1";
+         influenceLabel.TextAlign = ContentAlignment.MiddleCenter;
          // 
          // RealmTileControl
          // 
          AutoScaleDimensions = new SizeF(7F, 15F);
          AutoScaleMode = AutoScaleMode.Font;
+         Controls.Add(influenceLabel);
          Name = "RealmTileControl";
          Paint += RealmTileControl_Paint;
          ResumeLayout(false);
       }
 
       #endregion
+
+      private Label influenceLabel;
    }
 }

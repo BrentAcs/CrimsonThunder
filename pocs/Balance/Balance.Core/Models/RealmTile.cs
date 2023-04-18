@@ -29,4 +29,5 @@ public class RealmTile
 {
    public RealmType RealmType { get; set; }
    public Player Owner { get; set; } = Player.None;
+   public Influence Influence { get; set; } = new();
 }
