@@ -1,16 +1,28 @@
-﻿using Balance.App.Extensions;
+﻿using System;
+using Balance.App.Extensions;
 using Balance.Core.Models;
 
 namespace Balance.App.Controls;
 
-public partial class RealmTileControl : UserControl
+public partial class RealmTileControl : UserControl, IObserver<RealmTile>
 {
+   private RealmTile? _tile;
+
    public RealmTileControl()
    {
       InitializeComponent();
    }
 
-   public RealmTile Tile { get; set; }
+   public RealmTile? Tile
+   {
+      get => _tile;
+      set
+      {
+         _tile = value ?? throw new ArgumentNullException(nameof(value));
+         _tile.Subscribe(this);
+         influenceLabel.Text = $@"{_tile.Influence.GetAmount(Player.One)}-{_tile.Influence.GetAmount(Player.Two)}-{_tile.Influence.GetAmount(Player.Three)}-{_tile.Influence.GetAmount(Player.Four)}";
+      }
+   }
 
    protected virtual Color RealmBackColor => Color.White;
 
@@ -26,8 +38,15 @@ public partial class RealmTileControl : UserControl
       var rect = new Rectangle(Point.Empty, ClientSize);
       using var pen = new Pen(Color.Black, Globals.TileRenderer.BorderSize);
       g.DrawRoundedRectangle(pen, rect, Globals.TileRenderer.BorderSize);
+   }
 
-      influenceLabel.Text = "Boobs";
+   public void OnCompleted() { }
+
+   public void OnError(Exception error) { }
+
+   public void OnNext(RealmTile value)
+   {
+      influenceLabel.Text = $@"{_tile.Influence.GetAmount(Player.One)}-{_tile.Influence.GetAmount(Player.Two)}-{_tile.Influence.GetAmount(Player.Three)}-{_tile.Influence.GetAmount(Player.Four)}";
    }
 }
 
@@ -50,3 +69,4 @@ public class PlayerRealmTileControl : RealmTileControl
 {
    protected override Color RealmBackColor => Globals.PlayerContext.GetPlayerColor(Tile.Owner);
 }
+

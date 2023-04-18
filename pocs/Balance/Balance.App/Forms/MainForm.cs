@@ -19,13 +19,14 @@ public partial class MainForm : Form
 
       _map = Globals.MapFactory.Create(new IRealmTileMapFactory.Options());
 
-
       _map.Tiles[1, 1].Influence.SetAmount(Player.One, 10);
-      _map.Tiles[1, 1].Influence.SetAmount(Player.One, 20);
-      _map.Tiles[1, 1].Influence.SetAmount(Player.One, 30);
-      _map.Tiles[1, 1].Influence.SetAmount(Player.One, 40);
+      _map.Tiles[1, 1].Influence.SetAmount(Player.Two, 20);
+      _map.Tiles[1, 1].Influence.SetAmount(Player.Three, 30);
+      _map.Tiles[1, 1].Influence.SetAmount(Player.Four, 40);
 
       theMapControl.Initialize(_map);
+
+      _map.Tiles[1, 1].Influence.SetAmount(Player.Four, 50);
    }
 
    private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
