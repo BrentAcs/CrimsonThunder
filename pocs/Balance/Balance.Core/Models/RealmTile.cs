@@ -11,6 +11,15 @@ public enum RealmTileMapQuadrant
    SouthWest,
 }
 
+public enum Border
+{
+   None = 0,
+   North,
+   South,
+   East,
+   West,
+}
+
 public enum Player
 {
    None = 0,

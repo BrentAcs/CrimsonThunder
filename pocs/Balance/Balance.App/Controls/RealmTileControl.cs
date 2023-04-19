@@ -28,7 +28,7 @@ public partial class RealmTileControl : UserControl, IObserver<RealmTile>
 
    protected override void OnCreateControl()
    {
-      BackColor = RealmBackColor;
+      //BackColor = RealmBackColor;
       base.OnCreateControl();
    }
 
@@ -62,7 +62,7 @@ public class BorderRealmTileControl : RealmTileControl
 
 public class StandardRealmTileControl : RealmTileControl
 {
-   protected override Color RealmBackColor => Color.Gray;
+   protected override Color RealmBackColor => Color.DimGray;
 }
 
 public class PlayerRealmTileControl : RealmTileControl

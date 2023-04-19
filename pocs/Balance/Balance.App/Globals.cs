@@ -20,7 +20,7 @@ public class MapViewState
 
 public class TileRenderer
 {
-   public Size MapTileSize { get; } = new Size(128, 128);
+   public Size MapTileSize { get; } = new(96, 96);
    public int BorderSize { get; } = 4;
 }
 

@@ -12,7 +12,7 @@ public class RealmTileMap
    public int BorderRealmRow => Height / 2;
    public Coordinate NexusRealmCoordinate => new(BorderRealmCol, BorderRealmRow);
    public int QuadrantWidth => (Width / 2);
-   public int QuadrantHeight => (Height/ 2);
+   public int QuadrantHeight => (Height / 2);
    public Delta PlayerRealmDelta => new(QuadrantWidth / 2, QuadrantHeight / 2);
 
    public bool IsNexusRealm(Coordinate coordinate) => coordinate == NexusRealmCoordinate;
@@ -22,7 +22,7 @@ public class RealmTileMap
       if (IsNexusRealm(coordinate))
          return false;
 
-      if(coordinate.Col == BorderRealmCol )
+      if (coordinate.Col == BorderRealmCol)
          return true;
       if (coordinate.Row == BorderRealmRow)
          return true;
@@ -36,7 +36,7 @@ public class RealmTileMap
       {
          var quadrantHome = GetQuadrantHome(quadrant);
          var testCoordinate = quadrantHome.Offset(PlayerRealmDelta);
-         if(testCoordinate == coordinate)
+         if (testCoordinate == coordinate)
             return true;
       }
 
@@ -59,7 +59,7 @@ public class RealmTileMap
    {
       if (IsNexusRealm(coordinate))
          return RealmType.Nexus;
-      if( IsPlayerRealm(coordinate))
+      if (IsPlayerRealm(coordinate))
          return RealmType.Player;
 
       return IsBorderRealm(coordinate) ? RealmType.Border : RealmType.Standard;
@@ -92,7 +92,7 @@ public class RealmTileMap
    {
       foreach (var quadrant in Enum.GetValues<RealmTileMapQuadrant>())
       {
-         if(IsInQuadrant(coordinate,quadrant))         
+         if (IsInQuadrant(coordinate, quadrant))
             return quadrant;
       }
 
@@ -115,4 +115,31 @@ public class RealmTileMap
       return Tiles[testCoordinate.Col, testCoordinate.Row].Owner;
    }
 
+   public Border GetBorder(Coordinate coordinate)
+   {
+      if (coordinate.Col == BorderRealmCol && coordinate.Row < BorderRealmRow)
+         return Border.North;
+
+      if (coordinate.Col == BorderRealmCol && coordinate.Row > BorderRealmRow)
+         return Border.South;
+
+      if (coordinate.Row == BorderRealmRow && coordinate.Col < BorderRealmCol)
+         return Border.West;
+
+      if (coordinate.Row == BorderRealmRow && coordinate.Col > BorderRealmCol)
+         return Border.East;
+
+      return Border.None;
+   }
+
+   public IEnumerable<Player> GetBorderPlayers(Coordinate coordinate) =>
+      GetBorder(coordinate) switch
+      {
+         Border.None => new List<Player>(),
+         Border.North => new List<Player> { Player.One, Player.Two },
+         Border.South => new List<Player> { Player.Three, Player.Four },
+         Border.East => new List<Player> { Player.Two, Player.Three },
+         Border.West => new List<Player> { Player.Four, Player.One },
+         _ => throw new ArgumentOutOfRangeException()
+      };
 }

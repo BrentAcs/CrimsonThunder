@@ -1,4 +1,5 @@
-﻿using Balance.Core.Models;
+﻿using System.Numerics;
+using Balance.Core.Models;
 
 namespace Balance.Core.Services;
 
@@ -13,10 +14,10 @@ public interface IRealmTileMapPopulator
 
 public class RealmTileMapPopulator : IRealmTileMapPopulator
 {
-   private readonly List<Strategy> _strategies = new List<Strategy>
+   private readonly List<Strategy> _strategies = new()
    {
       new StandardRealmStrategy(),
-      // last one here=
+      new BorderRealmStrategy(),
       new PlayerRealmStrategy(),
       new NexusRealmStrategy()
    };
@@ -78,4 +79,17 @@ public class RealmTileMapPopulator : IRealmTileMapPopulator
       }
    }
 
+   public class BorderRealmStrategy : Strategy
+   {
+      public override bool CanHandle(RealmTileMap map, RealmTile tile) => map.IsBorderRealm(tile.Coordinate);
+
+      public override void Handle(RealmTileMap map, RealmTile tile)
+      {
+         var players = map.GetBorderPlayers(tile.Coordinate);
+         foreach (var player in players)
+         {
+            tile.Influence.SetAmount(player, 15);
+         }
+      }
+   }
 }

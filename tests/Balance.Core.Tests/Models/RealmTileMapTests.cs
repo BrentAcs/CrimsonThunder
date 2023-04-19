@@ -176,5 +176,41 @@ public class RealmTileMapTests
 
       sut.IsInQuadrant(coordinate, quadrant).Should().Be(expected);
    }
+
+   [Theory]
+   [InlineData(0, 0, Border.None)]
+   [InlineData(5, 0, Border.North)]
+   [InlineData(5, 4, Border.North)]
+   [InlineData(5, 5, Border.None)]
+   [InlineData(5, 6, Border.South)]
+   [InlineData(4, 5, Border.West)]
+   [InlineData(6, 5, Border.East)]
+   public void GetBorder_Theories(int col, int row, Border expected)
+   {
+      var coordinate = new Coordinate(col, row);
+      var sut = new RealmTileMap
+      {
+         Tiles = new RealmTile[11, 11]
+      };
+
+      sut.GetBorder(coordinate).Should().Be(expected);
+   }
+
+
+   [Theory]
+   [InlineData(5, 0, Player.One, Player.Two)]
+   [InlineData(6, 5, Player.Two, Player.Three)]
+   [InlineData(5, 6, Player.Three, Player.Four)]
+   [InlineData(0, 5, Player.Four, Player.One)]
+   public void GetBorderPlayers_Theories(int col, int row, params Player[] expected)
+   {
+      var coordinate = new Coordinate(col, row);
+      var sut = new RealmTileMap
+      {
+         Tiles = new RealmTile[11, 11]
+      };
+
+      sut.GetBorderPlayers(coordinate).Should().Contain(expected);
+   }
 }
 
