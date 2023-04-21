@@ -40,9 +40,12 @@ public class RealmTileMapPopulator : IRealmTileMapPopulator
          strategy.Handle(map, tile);
       }
 
-      foreach (var strategy in _randomStrategies)
+      foreach (var player in Enum.GetValues<Player>())
       {
-         strategy.Handle(map, 5 /* MAGIC NUMBER */ );
+         foreach (var strategy in _randomStrategies)
+         {
+            strategy.Handle(map, player,5 /* MAGIC NUMBER */ );
+         }
       }
    }
 
@@ -108,9 +111,9 @@ public class RealmTileMapPopulator : IRealmTileMapPopulator
    public abstract class RandomStrategy
    {
       protected abstract int Count { get; }
-      protected abstract IEnumerable<Coordinate> GetCoordinates();
+      protected abstract IEnumerable<RealmTile> GetTiles(RealmTileMap map, Player player);
 
-      public void Handle(RealmTileMap map, int maxAddedPerRealm)
+      public void Handle(RealmTileMap map, Player player, int maxAddedPerRealm)
       {
          var placed = new Dictionary<Coordinate, int>();
          for (int i = 0; i < Count; i++)
@@ -123,9 +126,8 @@ public class RealmTileMapPopulator : IRealmTileMapPopulator
    public class PlayerBorderRandomStrategy : RandomStrategy
    {
       protected override int Count => 30;
-      protected override IEnumerable<Coordinate> GetCoordinates() => throw new NotImplementedException();
+      protected override IEnumerable<RealmTile> GetTiles(RealmTileMap map, Player player)
+         => map.GetBorderCoordinatesForPlayer(player);
    }
-
-   
 
 }
