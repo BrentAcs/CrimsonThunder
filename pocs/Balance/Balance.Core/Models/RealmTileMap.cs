@@ -1,4 +1,5 @@
-﻿using Balance.Core.Extensions;
+﻿using System.Runtime.InteropServices;
+using Balance.Core.Extensions;
 
 namespace Balance.Core.Models;
 
@@ -142,4 +143,35 @@ public class RealmTileMap
          Border.West => new List<Player> { Player.Four, Player.One },
          _ => throw new ArgumentOutOfRangeException()
       };
+
+   public IEnumerable<RealmTile> GetAllTiles() => Tiles.Cast<RealmTile>().ToList();
+
+   public IEnumerable<RealmTile> GetBorderTiles() => GetAllTiles().Where(_ => IsBorderRealm(_.Coordinate));
+
+   public IEnumerable<RealmTile> GetBorderCoordinatesForPlayer(Player player)
+   {
+      var tiles = new List<RealmTile>();
+      foreach (var tile in GetBorderTiles())
+      {
+         if (GetBorderPlayers(tile.Coordinate).Contains(player))
+         {
+            tiles.Add(tile);
+         }
+      }
+      return tiles;
+   }
+
+   public IEnumerable<RealmTile> GetBorderCoordinatesNotForPlayer(Player player)
+   {
+      var tiles = new List<RealmTile>();
+      foreach (var tile in GetBorderTiles())
+      {
+         if (!GetBorderPlayers(tile.Coordinate).Contains(player))
+         {
+            tiles.Add(tile);
+         }
+      }
+      return tiles;
+   }
+
 }

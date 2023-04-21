@@ -1,10 +1,13 @@
 ﻿using Balance.Core.Models;
+using Balance.Core.Services;
 using FluentAssertions;
 
 namespace Balance.Core.Tests.Models;
 
 public class RealmTileMapTests
 {
+   private IRealmTileMapFactory _factory = new RealmTileMapFactory();
+
    [Fact]
    public void Width_Test()
    {
@@ -140,7 +143,6 @@ public class RealmTileMapTests
       sut.IsPlayerRealm(coordinate).Should().Be(expected);
    }
 
-
    [Theory]
    [InlineData(5, 5, RealmType.Nexus)]
    [InlineData(2, 2, RealmType.Player)]
@@ -196,7 +198,6 @@ public class RealmTileMapTests
       sut.GetBorder(coordinate).Should().Be(expected);
    }
 
-
    [Theory]
    [InlineData(5, 0, Player.One, Player.Two)]
    [InlineData(6, 5, Player.Two, Player.Three)]
@@ -212,5 +213,44 @@ public class RealmTileMapTests
 
       sut.GetBorderPlayers(coordinate).Should().Contain(expected);
    }
+
+   [Fact]
+   public void GetAllTiles_Test()
+   {
+      var sut = _factory.Create(new IRealmTileMapFactory.Options());
+
+      sut.GetAllTiles().Count().Should().Be(121);
+   }
+
+   [Fact]
+   public void GetBorderTiles_Test()
+   {
+      var sut = _factory.Create(new IRealmTileMapFactory.Options());
+
+      sut.GetBorderTiles().Count().Should().Be(20);
+   }
+
+   [Fact]
+   public void GetBorderCoordinatesForPlayer_Test()
+   {
+      var sut = _factory.Create(new IRealmTileMapFactory.Options());
+
+      var result = sut.GetBorderCoordinatesForPlayer(Player.One);
+
+      result.Count().Should().Be(10);
+      result.Select(_ => _.Coordinate).Should().Contain(new Coordinate(5, 0));
+   }
+
+   [Fact]
+   public void GetBorderCoordinatesNotForPlayer_Test()
+   {
+      var sut = _factory.Create(new IRealmTileMapFactory.Options());
+
+      var result = sut.GetBorderCoordinatesNotForPlayer(Player.One);
+
+      result.Count().Should().Be(10);
+      result.Select(_ => _.Coordinate).Should().Contain(new Coordinate(5, 10));
+   }
+
 }
 

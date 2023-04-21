@@ -1,4 +1,5 @@
-﻿using System.Numerics;
+﻿using System.Dynamic;
+using System.Numerics;
 using Balance.Core.Models;
 
 namespace Balance.Core.Services;
@@ -14,13 +15,15 @@ public interface IRealmTileMapPopulator
 
 public class RealmTileMapPopulator : IRealmTileMapPopulator
 {
-   private readonly List<Strategy> _strategies = new()
+   private readonly List<StockStrategy> _stockStrategies = new()
    {
-      new StandardRealmStrategy(),
-      new BorderRealmStrategy(),
-      new PlayerRealmStrategy(),
-      new NexusRealmStrategy()
+      new StandardRealmStockStrategy(),
+      new BorderRealmStockStrategy(),
+      new PlayerRealmStockStrategy(),
+      new NexusRealmStockStrategy()
    };
+
+   private readonly List<RandomStrategy> _randomStrategies = new() { new PlayerBorderRandomStrategy() };
 
    public void Populate(RealmTileMap map, IRealmTileMapPopulator.Options options)
    {
@@ -32,19 +35,26 @@ public class RealmTileMapPopulator : IRealmTileMapPopulator
 
    private void CallStrategies(RealmTileMap map, RealmTile tile)
    {
-      foreach (var strategy in _strategies.Where(strategy => strategy.CanHandle(map, tile)))
+      foreach (var strategy in _stockStrategies.Where(strategy => strategy.CanHandle(map, tile)))
       {
          strategy.Handle(map, tile);
       }
+
+      foreach (var strategy in _randomStrategies)
+      {
+         strategy.Handle(map, 5 /* MAGIC NUMBER */ );
+      }
    }
 
-   public abstract class Strategy
+   // -- Stock strategies
+
+   public abstract class StockStrategy
    {
       public abstract bool CanHandle(RealmTileMap map, RealmTile tile);
       public abstract void Handle(RealmTileMap map, RealmTile tile);
    }
 
-   public class NexusRealmStrategy : Strategy
+   public class NexusRealmStockStrategy : StockStrategy
    {
       public override bool CanHandle(RealmTileMap map, RealmTile tile) => map.IsNexusRealm(tile.Coordinate);
 
@@ -57,7 +67,7 @@ public class RealmTileMapPopulator : IRealmTileMapPopulator
       }
    }
 
-   public class PlayerRealmStrategy : Strategy
+   public class PlayerRealmStockStrategy : StockStrategy
    {
       public override bool CanHandle(RealmTileMap map, RealmTile tile) => map.IsPlayerRealm(tile.Coordinate);
 
@@ -67,7 +77,7 @@ public class RealmTileMapPopulator : IRealmTileMapPopulator
       }
    }
 
-   public class StandardRealmStrategy : Strategy
+   public class StandardRealmStockStrategy : StockStrategy
    {
       public override bool CanHandle(RealmTileMap map, RealmTile tile) => map.IsStandardRealm(tile.Coordinate);
 
@@ -79,7 +89,7 @@ public class RealmTileMapPopulator : IRealmTileMapPopulator
       }
    }
 
-   public class BorderRealmStrategy : Strategy
+   public class BorderRealmStockStrategy : StockStrategy
    {
       public override bool CanHandle(RealmTileMap map, RealmTile tile) => map.IsBorderRealm(tile.Coordinate);
 
@@ -92,4 +102,30 @@ public class RealmTileMapPopulator : IRealmTileMapPopulator
          }
       }
    }
+
+   // -- Random strategies
+
+   public abstract class RandomStrategy
+   {
+      protected abstract int Count { get; }
+      protected abstract IEnumerable<Coordinate> GetCoordinates();
+
+      public void Handle(RealmTileMap map, int maxAddedPerRealm)
+      {
+         var placed = new Dictionary<Coordinate, int>();
+         for (int i = 0; i < Count; i++)
+         {
+
+         }
+      }
+   }
+
+   public class PlayerBorderRandomStrategy : RandomStrategy
+   {
+      protected override int Count => 30;
+      protected override IEnumerable<Coordinate> GetCoordinates() => throw new NotImplementedException();
+   }
+
+   
+
 }
