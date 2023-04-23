@@ -1,6 +1,8 @@
 ﻿using System.Dynamic;
 using System.Numerics;
 using Balance.Core.Models;
+using Balance.Core.Extensions;
+using Bass.Shared.Utilities;
 
 namespace Balance.Core.Services;
 
@@ -15,6 +17,8 @@ public interface IRealmTileMapPopulator
 
 public class RealmTileMapPopulator : IRealmTileMapPopulator
 {
+   private readonly IRng _rng = new SimpleRng();
+
    private readonly List<StockStrategy> _stockStrategies = new()
    {
       new StandardRealmStockStrategy(),
@@ -23,29 +27,37 @@ public class RealmTileMapPopulator : IRealmTileMapPopulator
       new NexusRealmStockStrategy()
    };
 
-   private readonly List<RandomStrategy> _randomStrategies = new() { new PlayerBorderRandomStrategy() };
+   private readonly List<RandomStrategy> _randomStrategies;
+
+   public RealmTileMapPopulator()
+   {
+      _randomStrategies = new()
+      {
+         new PlayerBorderRandomStrategy(_rng),
+         new NonPlayerBorderRandomStrategy(_rng),
+         new PlayerQuadrantRandomStrategy(_rng),
+         new NonPlayerQuadrantRandomStrategy(_rng)
+      };
+   }
 
    public void Populate(RealmTileMap map, IRealmTileMapPopulator.Options options)
    {
       foreach (var tile in map.Tiles)
       {
-         CallStrategies(map, tile);
+         CallStrategiesForTile(map, tile);
+      }
+
+      foreach (var strategy in _randomStrategies)
+      {
+         strategy.Handle(map, 5 /* MAGIC NUMBER */ );
       }
    }
 
-   private void CallStrategies(RealmTileMap map, RealmTile tile)
+   private void CallStrategiesForTile(RealmTileMap map, RealmTile tile)
    {
       foreach (var strategy in _stockStrategies.Where(strategy => strategy.CanHandle(map, tile)))
       {
          strategy.Handle(map, tile);
-      }
-
-      foreach (var player in Enum.GetValues<Player>())
-      {
-         foreach (var strategy in _randomStrategies)
-         {
-            strategy.Handle(map, player,5 /* MAGIC NUMBER */ );
-         }
       }
    }
 
@@ -110,24 +122,97 @@ public class RealmTileMapPopulator : IRealmTileMapPopulator
 
    public abstract class RandomStrategy
    {
+      protected IRng Rng { get; }
       protected abstract int Count { get; }
       protected abstract IEnumerable<RealmTile> GetTiles(RealmTileMap map, Player player);
 
-      public void Handle(RealmTileMap map, Player player, int maxAddedPerRealm)
-      {
-         var placed = new Dictionary<Coordinate, int>();
-         for (int i = 0; i < Count; i++)
-         {
+      private List<RealmTile> _tiles;
+      private Dictionary<Coordinate, int> _placed = new();
 
+      protected RandomStrategy(IRng rng)
+      {
+         Rng = rng;
+      }
+
+      private void Reset(RealmTileMap map, Player player)
+      {
+         _tiles = GetTiles(map, player).ToList();
+         _placed.Clear();
+      }
+
+      private Coordinate GetRandomTile(int maxAddedPerRealm)
+      {
+         var rnd = Rng.Next(_tiles.Count);
+         var coord = _tiles[rnd].Coordinate;
+         _placed.TryAdd(coord, 0);
+         var canAdd = _placed[coord] < maxAddedPerRealm;
+         while (!canAdd)
+         {
+            rnd = Rng.Next(_tiles.Count);
+            coord = _tiles[rnd].Coordinate;
+            canAdd = _placed.ContainsKey(coord) && _placed[coord] < maxAddedPerRealm;
+         }
+
+         _placed[coord]++;
+         return coord;
+      }
+
+      public void Handle(RealmTileMap map, int maxAddedPerRealm)
+      {
+         foreach (var player in Enum.GetValues<Player>().ExcludeNone())
+         {
+            Reset(map, player);
+            for (int i = 0; i < Count; i++)
+            {
+               var coord = GetRandomTile(maxAddedPerRealm);
+               map.Tiles[coord.Col, coord.Row].Influence.AddAmount(player, 1);
+            }
          }
       }
    }
 
    public class PlayerBorderRandomStrategy : RandomStrategy
    {
+      public PlayerBorderRandomStrategy(IRng rng) : base(rng)
+      {
+      }
+
       protected override int Count => 30;
       protected override IEnumerable<RealmTile> GetTiles(RealmTileMap map, Player player)
-         => map.GetBorderCoordinatesForPlayer(player);
+         => map.GetBorderTilesForPlayer(player);
+   }
+
+   public class NonPlayerBorderRandomStrategy : RandomStrategy
+   {
+      public NonPlayerBorderRandomStrategy(IRng rng) : base(rng)
+      {
+      }
+
+      protected override int Count => 30;
+      protected override IEnumerable<RealmTile> GetTiles(RealmTileMap map, Player player)
+         => map.GetBorderTilesNotForPlayer(player);
+   }
+
+   public class PlayerQuadrantRandomStrategy : RandomStrategy
+   {
+      public PlayerQuadrantRandomStrategy(IRng rng) : base(rng)
+      {
+      }
+
+      protected override int Count => 30;
+      protected override IEnumerable<RealmTile> GetTiles(RealmTileMap map, Player player)
+         => map.GetQuadrantTilesForPlayer(player);
+   }
+
+   public class NonPlayerQuadrantRandomStrategy : RandomStrategy
+   {
+      public NonPlayerQuadrantRandomStrategy(IRng rng) : base(rng)
+      {
+      }
+
+      protected override int Count => 30;
+      protected override IEnumerable<RealmTile> GetTiles(RealmTileMap map, Player player)
+         => map.GetQuadrantTilesNotForPlayer(player);
    }
 
 }

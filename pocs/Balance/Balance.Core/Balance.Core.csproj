@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\BASS.Shared\app\Bass.Shared\Bass.Shared.csproj" />
+  </ItemGroup>
+
 </Project>

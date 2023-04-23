@@ -20,7 +20,7 @@ public partial class RealmTileControl : UserControl, IObserver<RealmTile>
       {
          _tile = value ?? throw new ArgumentNullException(nameof(value));
          _tile.Subscribe(this);
-         influenceLabel.Text = $@"{_tile.Influence.GetAmount(Player.One)}-{_tile.Influence.GetAmount(Player.Two)}-{_tile.Influence.GetAmount(Player.Three)}-{_tile.Influence.GetAmount(Player.Four)}";
+         influenceView.Influence = _tile.Influence;
       }
    }
 
@@ -46,7 +46,7 @@ public partial class RealmTileControl : UserControl, IObserver<RealmTile>
 
    public void OnNext(RealmTile value)
    {
-      influenceLabel.Text = $@"{_tile.Influence.GetAmount(Player.One)}-{_tile.Influence.GetAmount(Player.Two)}-{_tile.Influence.GetAmount(Player.Three)}-{_tile.Influence.GetAmount(Player.Four)}";
+      influenceView.Influence = _tile.Influence;
    }
 }
 

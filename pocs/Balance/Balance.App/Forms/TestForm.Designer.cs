@@ -1,13 +1,13 @@
-﻿namespace Balance.App.Controls
+﻿namespace Balance.App.Forms
 {
-   partial class RealmTileControl
+   partial class TestForm
    {
-      /// <summary> 
+      /// <summary>
       /// Required designer variable.
       /// </summary>
       private System.ComponentModel.IContainer components = null;
 
-      /// <summary> 
+      /// <summary>
       /// Clean up any resources being used.
       /// </summary>
       /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
@@ -20,37 +20,38 @@
          base.Dispose(disposing);
       }
 
-      #region Component Designer generated code
+      #region Windows Form Designer generated code
 
-      /// <summary> 
-      /// Required method for Designer support - do not modify 
+      /// <summary>
+      /// Required method for Designer support - do not modify
       /// the contents of this method with the code editor.
       /// </summary>
       private void InitializeComponent()
       {
-         influenceView = new InfluenceView();
+         influenceView1 = new Controls.InfluenceView();
          SuspendLayout();
          // 
-         // influenceView
+         // influenceView1
          // 
-         influenceView.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-         influenceView.Influence = null;
-         influenceView.Location = new Point(3, 129);
-         influenceView.Name = "influenceView";
-         influenceView.Size = new Size(144, 18);
-         influenceView.TabIndex = 1;
+         influenceView1.Influence = null;
+         influenceView1.Location = new Point(12, 12);
+         influenceView1.Name = "influenceView1";
+         influenceView1.Size = new Size(259, 223);
+         influenceView1.TabIndex = 0;
          // 
-         // RealmTileControl
+         // TestForm
          // 
          AutoScaleDimensions = new SizeF(7F, 15F);
          AutoScaleMode = AutoScaleMode.Font;
-         Controls.Add(influenceView);
-         Name = "RealmTileControl";
-         Paint += RealmTileControl_Paint;
+         ClientSize = new Size(800, 450);
+         Controls.Add(influenceView1);
+         Name = "TestForm";
+         Text = "TestForm";
          ResumeLayout(false);
       }
 
       #endregion
-      private InfluenceView influenceView;
+
+      private Controls.InfluenceView influenceView1;
    }
 }

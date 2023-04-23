@@ -15,6 +15,7 @@ internal static class Program
       ApplicationConfiguration.Initialize();
       Application.ThreadException += Application_ThreadException;
       Application.Run(new MainForm());
+      //Application.Run(new TestForm());
       UserSettings.Default.Save();
    }
 

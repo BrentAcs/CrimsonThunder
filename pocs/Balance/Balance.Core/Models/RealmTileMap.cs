@@ -1,5 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 using Balance.Core.Extensions;
+using Balance.Core.Services;
 
 namespace Balance.Core.Models;
 
@@ -15,6 +16,8 @@ public class RealmTileMap
    public int QuadrantWidth => (Width / 2);
    public int QuadrantHeight => (Height / 2);
    public Delta PlayerRealmDelta => new(QuadrantWidth / 2, QuadrantHeight / 2);
+
+   public Influence Influence => GetAllTiles().GetTotalInfluence();
 
    public bool IsNexusRealm(Coordinate coordinate) => coordinate == NexusRealmCoordinate;
 
@@ -55,6 +58,19 @@ public class RealmTileMap
          RealmTileMapQuadrant.SouthWest => new Coordinate(0, BorderRealmRow + 1),
          _ => throw new ArgumentOutOfRangeException(nameof(quadrant), quadrant, null)
       };
+
+   public Player GetQuadrantPlayer(RealmTileMapQuadrant quadrant) => GetOwner(GetQuadrantHome(quadrant).Offset(PlayerRealmDelta));
+
+   public RealmTileMapQuadrant GetPlayerQuadrant(Player player)
+   {
+      foreach (var quadrant in Enum.GetValues<RealmTileMapQuadrant>())
+      {
+         if (player == GetQuadrantPlayer(quadrant))
+            return quadrant;
+      }
+
+      throw new InvalidOperationException();
+   }
 
    public RealmType GetRealmType(Coordinate coordinate)
    {
@@ -108,14 +124,6 @@ public class RealmTileMap
       return Tiles[testCoordinate.Col, testCoordinate.Row].Owner == player;
    }
 
-   public Player GetQuadrantPlayer(RealmTileMapQuadrant quadrant)
-   {
-      var quadrantHome = GetQuadrantHome(quadrant);
-      var testCoordinate = quadrantHome.Offset(PlayerRealmDelta);
-
-      return Tiles[testCoordinate.Col, testCoordinate.Row].Owner;
-   }
-
    public Border GetBorder(Coordinate coordinate)
    {
       if (coordinate.Col == BorderRealmCol && coordinate.Row < BorderRealmRow)
@@ -148,7 +156,7 @@ public class RealmTileMap
 
    public IEnumerable<RealmTile> GetBorderTiles() => GetAllTiles().Where(_ => IsBorderRealm(_.Coordinate));
 
-   public IEnumerable<RealmTile> GetBorderCoordinatesForPlayer(Player player)
+   public IEnumerable<RealmTile> GetBorderTilesForPlayer(Player player)
    {
       var tiles = new List<RealmTile>();
       foreach (var tile in GetBorderTiles())
@@ -161,7 +169,7 @@ public class RealmTileMap
       return tiles;
    }
 
-   public IEnumerable<RealmTile> GetBorderCoordinatesNotForPlayer(Player player)
+   public IEnumerable<RealmTile> GetBorderTilesNotForPlayer(Player player)
    {
       var tiles = new List<RealmTile>();
       foreach (var tile in GetBorderTiles())
@@ -174,4 +182,36 @@ public class RealmTileMap
       return tiles;
    }
 
+   public IEnumerable<RealmTile> GetQuadrantTilesForPlayer(Player player)
+   {
+      var tiles = new List<RealmTile>();
+      var quadrant = GetPlayerQuadrant(player);
+      foreach (var tile in GetAllTiles())
+      {
+         if (IsInQuadrant(tile.Coordinate, quadrant))
+         {
+            tiles.Add(tile);
+         }
+      }
+      return tiles;
+   }
+
+   public IEnumerable<RealmTile> GetQuadrantTilesNotForPlayer(Player player)
+   {
+      var tiles = new List<RealmTile>();
+
+      var nonPlayers = Enum.GetValues<Player>().ExcludeNone().Where(_ => _ != player);
+      foreach (var nonPlayer in nonPlayers)
+      {
+         var quadrant = GetPlayerQuadrant(nonPlayer);
+         foreach (var tile in GetAllTiles())
+         {
+            if (IsInQuadrant(tile.Coordinate, quadrant))
+            {
+               tiles.Add(tile);
+            }
+         }
+      }
+      return tiles;
+   }
 }

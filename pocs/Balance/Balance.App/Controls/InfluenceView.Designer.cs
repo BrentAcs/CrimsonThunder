@@ -1,6 +1,6 @@
 ﻿namespace Balance.App.Controls
 {
-   partial class RealmTileControl
+   partial class InfluenceView
    {
       /// <summary> 
       /// Required designer variable.
@@ -28,29 +28,10 @@
       /// </summary>
       private void InitializeComponent()
       {
-         influenceView = new InfluenceView();
-         SuspendLayout();
-         // 
-         // influenceView
-         // 
-         influenceView.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-         influenceView.Influence = null;
-         influenceView.Location = new Point(3, 129);
-         influenceView.Name = "influenceView";
-         influenceView.Size = new Size(144, 18);
-         influenceView.TabIndex = 1;
-         // 
-         // RealmTileControl
-         // 
-         AutoScaleDimensions = new SizeF(7F, 15F);
-         AutoScaleMode = AutoScaleMode.Font;
-         Controls.Add(influenceView);
-         Name = "RealmTileControl";
-         Paint += RealmTileControl_Paint;
-         ResumeLayout(false);
+         components = new System.ComponentModel.Container();
+         this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       }
 
       #endregion
-      private InfluenceView influenceView;
    }
 }

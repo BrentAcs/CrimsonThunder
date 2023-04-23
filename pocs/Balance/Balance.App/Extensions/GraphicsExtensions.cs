@@ -1,4 +1,5 @@
 ﻿using System.Drawing.Drawing2D;
+using Balance.Core.Models;
 
 namespace Balance.App.Extensions;
 

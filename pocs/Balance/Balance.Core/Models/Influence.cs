@@ -1,4 +1,5 @@
 ﻿using System;
+using Balance.Core.Extensions;
 
 namespace Balance.Core.Models;
 
@@ -10,13 +11,27 @@ public class Influence : IObservable<Influence>
 
    public Influence()
    {
-      _map[Player.One] = 0;
-      _map[Player.Two] = 0;
-      _map[Player.Three] = 0;
-      _map[Player.Four] = 0;
+      foreach (var player in Enum.GetValues<Player>().ExcludeNone())
+      {
+         _map[player] = 0;
+      }
+   }
+
+   public Influence(int p1, int p2, int p3, int p4)
+   {
+      _map[Player.One] = p1;
+      _map[Player.Two] = p2;
+      _map[Player.Three] = p3;
+      _map[Player.Four] = p4;
    }
 
    public int this[Player player] => GetAmount(player);
+
+   //public int MaximumAmount => _map.Values.Max();
+
+   //public int MinimumAmount => _map.Values.Min();
+
+   public int TotalAmount => _map.Sum(_ => _.Value);
 
    public int GetAmount(Player player) => _map[player];
 
@@ -31,6 +46,14 @@ public class Influence : IObservable<Influence>
       _map[player] += amount;
       CallObservers();
       return _map[player];
+   }
+
+   public float GetPercentage(Player player)
+   {
+      if (TotalAmount == 0)
+         return 0;
+      
+      return _map[player] / (float)TotalAmount;
    }
 
    public IDisposable Subscribe(IObserver<Influence> observer) => _influenceObservables.Subscribe(observer);

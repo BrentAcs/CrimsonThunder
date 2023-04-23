@@ -21,6 +21,7 @@ public partial class MainForm : Form
       Globals.MapPopulator.Populate(_map, new IRealmTileMapPopulator.Options());
 
       theMapControl.Initialize(_map);
+      totalInfluenceView.Influence = _map.Influence;
    }
 
    private void MainForm_FormClosed(object sender, FormClosedEventArgs e)

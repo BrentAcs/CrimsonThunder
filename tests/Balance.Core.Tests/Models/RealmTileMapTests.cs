@@ -125,6 +125,14 @@ public class RealmTileMapTests
       result.Should().Be(expected);
    }
 
+   [Theory]
+   [InlineData(Player.One, RealmTileMapQuadrant.NorthWest)]
+   public void GetPlayerQuadrant_Theories(Player player, RealmTileMapQuadrant expected)
+   {
+      var sut = _factory.Create(new IRealmTileMapFactory.Options());
+
+      sut.GetPlayerQuadrant(player).Should().Be(expected);
+   }
 
    [Theory]
    [InlineData(0, 0, false)]
@@ -235,7 +243,7 @@ public class RealmTileMapTests
    {
       var sut = _factory.Create(new IRealmTileMapFactory.Options());
 
-      var result = sut.GetBorderCoordinatesForPlayer(Player.One);
+      var result = sut.GetBorderTilesForPlayer(Player.One);
 
       result.Count().Should().Be(10);
       result.Select(_ => _.Coordinate).Should().Contain(new Coordinate(5, 0));
@@ -246,11 +254,9 @@ public class RealmTileMapTests
    {
       var sut = _factory.Create(new IRealmTileMapFactory.Options());
 
-      var result = sut.GetBorderCoordinatesNotForPlayer(Player.One);
+      var result = sut.GetBorderTilesNotForPlayer(Player.One);
 
       result.Count().Should().Be(10);
       result.Select(_ => _.Coordinate).Should().Contain(new Coordinate(5, 10));
    }
-
 }
-
