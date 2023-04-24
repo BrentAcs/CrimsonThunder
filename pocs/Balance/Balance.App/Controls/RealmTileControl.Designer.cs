@@ -39,6 +39,7 @@
          influenceView.Name = "influenceView";
          influenceView.Size = new Size(144, 18);
          influenceView.TabIndex = 1;
+         influenceView.Visible = false;
          // 
          // RealmTileControl
          // 

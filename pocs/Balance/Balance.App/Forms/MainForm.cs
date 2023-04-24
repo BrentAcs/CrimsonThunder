@@ -17,7 +17,7 @@ public partial class MainForm : Form
       Location = UserSettings.Default.MainForm_Location;
       Size = UserSettings.Default.MainForm_Size;
 
-      _map = Globals.MapFactory.Create(new IRealmTileMapFactory.Options());
+      _map = Globals.MapFactory.Create();
       Globals.MapPopulator.Populate(_map, new IRealmTileMapPopulator.Options());
 
       theMapControl.Initialize(_map);

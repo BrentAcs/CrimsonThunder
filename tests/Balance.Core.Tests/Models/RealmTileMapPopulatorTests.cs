@@ -16,7 +16,7 @@ public class RealmTileMapPopulatorTests
    [Fact]
    public void Test()
    {
-      var map = _factory.Create(new IRealmTileMapFactory.Options());
+      var map = _factory.Create();
 
       var sut = new RealmTileMapPopulator();
 

@@ -1,5 +1,4 @@
-﻿using System;
-using Balance.App.Extensions;
+﻿using Balance.App.Extensions;
 using Balance.Core.Models;
 
 namespace Balance.App.Controls;

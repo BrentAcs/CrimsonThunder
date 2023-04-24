@@ -1,31 +1,33 @@
-﻿using Balance.Core.Models;
+﻿using System.Drawing;
+using Balance.Core.Models;
 
 namespace Balance.Core.Services;
 
 public interface IRealmTileMapFactory
 {
-   public class Options
-   {
-      // TODO: Add size
-   }
-
-   RealmTileMap Create(Options options);
+   RealmTileMap Create(RealmTileMapFactory.Options? options=null);
 }
 
 public class RealmTileMapFactory : IRealmTileMapFactory
 {
-   public RealmTileMap Create(IRealmTileMapFactory.Options options)
+   public class Options
    {
-      var mapSize = 11;
+      public Size MapSize { get; set; } = new(11, 11);
+   }
+
+
+   public RealmTileMap Create(Options? options)
+   {
+      options = options ?? new Options();
 
       var map = new RealmTileMap
       {
-         Tiles = new RealmTile[mapSize, mapSize]
+         Tiles = new RealmTile[options.MapSize.Width, options.MapSize.Height]
       };
 
-      for (int col = 0; col < mapSize; col++)
+      for (int col = 0; col < options.MapSize.Width; col++)
       {
-         for (int row = 0; row < mapSize; row++)
+         for (int row = 0; row < options.MapSize.Height; row++)
          {
             var coordinate = new Coordinate(col, row);
             map.Tiles[col, row] = CreateTile(map, coordinate);
