@@ -5,7 +5,7 @@ namespace Balance.Core.Services;
 
 public interface IRealmTileMapFactory
 {
-   RealmTileMap Create(RealmTileMapFactory.Options? options=null);
+   RealmTileMap Create(RealmTileMapFactory.Options? options = null);
 }
 
 public class RealmTileMapFactory : IRealmTileMapFactory
@@ -13,8 +13,12 @@ public class RealmTileMapFactory : IRealmTileMapFactory
    public class Options
    {
       public Size MapSize { get; set; } = new(11, 11);
-   }
 
+      public static Options Small => new() { MapSize = new Size(9, 9) };
+      public static Options Medium => new() { MapSize = new Size(11, 11) };
+      public static Options Large => new() { MapSize = new Size(15, 15) };
+      public static Options ExtraLarge => new() { MapSize = new Size(21, 21) };
+   }
 
    public RealmTileMap Create(Options? options)
    {
