@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using System.Diagnostics;
+﻿using Balance.App.CustomEventArgs;
 using Balance.App.Renders;
 using Balance.Core.Models;
 using Balance.Core.Services;
@@ -9,7 +8,7 @@ namespace Balance.App.Controls;
 public partial class RealmTileMapView : UserControl
 {
    private RealmTileMap? _map;
-   private MapDisplayOptions _displayOptions = new();
+   //private MapDisplayOptions _displayOptions = new();
    private readonly RealmTileRenderer _tileRenderer = new();
 
    public RealmTileMapView()
@@ -27,18 +26,9 @@ public partial class RealmTileMapView : UserControl
       }
    }
 
-   public MapDisplayOptions DisplayOptions
-   {
-      get => _displayOptions;
-      set
-      {
-         _displayOptions = value;
-         _tileRenderer.Options = _displayOptions;
-         Setup();
-      }
-   }
+   public TileRendererOptions Options => Globals.TileRendererOptions;
 
-   public event EventHandler<MouseCoordinateEventArgs> MouseSetOverCoordinate;
+   public event EventHandler<MouseCoordinateEventArgs> MouseIndicateOverCoordinate;
    public event EventHandler<EventArgs> MouseClearOverCoordinate;
 
    protected override void OnLoad(EventArgs e)
@@ -47,13 +37,12 @@ public partial class RealmTileMapView : UserControl
       DoubleBuffered = true;
    }
 
-
    private void Setup()
    {
       if (Map is null)
          return;
 
-      thePanel.Size = new Size(Map.Width * DisplayOptions.TileSize.Width, Map.Height * DisplayOptions.TileSize.Height);
+      thePanel.Size = new Size(Map.Width * Options.MapTileSize.Width, Map.Height * Options.MapTileSize.Height);
 
       Invalidate();
    }
@@ -72,10 +61,10 @@ public partial class RealmTileMapView : UserControl
 
    private Rectangle GetTileRect(RealmTile tile) =>
       new(
-         tile.Coordinate.Col * DisplayOptions!.TileSize.Width,
-         tile.Coordinate.Row * DisplayOptions.TileSize.Height,
-         DisplayOptions.TileSize.Width,
-         DisplayOptions.TileSize.Height);
+         tile.Coordinate.Col * Options!.MapTileSize.Width,
+         tile.Coordinate.Row * Options.MapTileSize.Height,
+         Options.MapTileSize.Width,
+         Options.MapTileSize.Height);
 
    private bool IsTracking => _mouseLocation is not null;
    private Point? _mouseLocation;
@@ -83,7 +72,6 @@ public partial class RealmTileMapView : UserControl
 
    private void ClearTracking()
    {
-      //Debug.WriteLine($"{nameof(ClearTracking)}");
       _mouseLocation = null;
       _mouseCoordinate = null;
       OnMouseClearOverCoordinate();
@@ -92,9 +80,9 @@ public partial class RealmTileMapView : UserControl
    private void SetTracking(Point location)
    {
       _mouseLocation = location;
-      _mouseCoordinate = new Coordinate( location.X / DisplayOptions.TileSize.Width, location.Y / DisplayOptions.TileSize.Height);
-      OnMouseOverCoordinate(_mouseCoordinate);
-      //Debug.WriteLine($"{nameof(SetTracking)}, Loc: {_mouseLocation}, Coord: {_mouseCoordinate}");
+      _mouseCoordinate = new Coordinate( location.X / Options.MapTileSize.Width, location.Y / Options.MapTileSize.Height);
+      var tile = Map!.Tiles[_mouseCoordinate.Col, _mouseCoordinate.Row];
+      OnMouseOverCoordinate(tile);
    }
 
    private void thePanel_MouseLeave(object sender, EventArgs e) => ClearTracking();
@@ -121,9 +109,9 @@ public partial class RealmTileMapView : UserControl
       //Debug.WriteLine($"{nameof(thePanel_MouseUp)}");
    }
 
-   protected virtual void OnMouseOverCoordinate(Coordinate coordinate) => OnMouseOverCoordinate(new MouseCoordinateEventArgs(coordinate));
+   protected virtual void OnMouseOverCoordinate(RealmTile tile) => OnMouseOverCoordinate(new MouseCoordinateEventArgs(tile));
 
-   protected virtual void OnMouseOverCoordinate(MouseCoordinateEventArgs e) => MouseSetOverCoordinate?.Invoke(this, e);
+   protected virtual void OnMouseOverCoordinate(MouseCoordinateEventArgs e) => MouseIndicateOverCoordinate?.Invoke(this, e);
 
    protected virtual void OnMouseClearOverCoordinate() => MouseClearOverCoordinate?.Invoke(this, EventArgs.Empty);
 }

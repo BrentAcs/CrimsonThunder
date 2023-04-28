@@ -25,7 +25,7 @@ public partial class InfluenceView : UserControl
    }
 
    private Influence InfluenceInternal => Influence ?? new Influence(25, 0, 50, 100);
-   private int PlayerCount => Enum.GetValues<Player>().ExcludeNone().Count();
+   private int PlayerCount => Enum.GetValues<Player>().OnboardOnly().Count();
 
    private const int BorderSize = 2;
 

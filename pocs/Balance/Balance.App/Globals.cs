@@ -6,7 +6,7 @@ namespace Balance.App;
 public static class Globals
 {
    public static MapViewState MapViewState { get; } = new();
-   public static TileRenderer TileRenderer { get; } = new();
+   public static TileRendererOptions TileRendererOptions { get; } = new();
    public static PlayerContext PlayerContext { get; } = new();
 
    public static IRealmTileMapFactory MapFactory { get; } = new RealmTileMapFactory();
@@ -18,7 +18,7 @@ public class MapViewState
    public double ScaleFactor { get; set; } = 100;
 }
 
-public class TileRenderer
+public class TileRendererOptions
 {
    public Size MapTileSize { get; } = new(96, 96);
    public int BorderSize { get; } = 4;

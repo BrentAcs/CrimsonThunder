@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using Balance.App.Controls;
+using Balance.App.CustomEventArgs;
 using Balance.Core.Models;
 using Balance.Core.Services;
 
@@ -26,13 +27,11 @@ public partial class MainForm : Form
       Location = UserSettings.Default.MainForm_Location;
       Size = UserSettings.Default.MainForm_Size;
 
-      _map = Globals.MapFactory.Create(RealmTileMapFactory.Options.ExtraLarge);
+      _map = Globals.MapFactory.Create(RealmTileMapFactory.Options.Medium);
       Globals.MapPopulator.Populate(_map, new IRealmTileMapPopulator.Options());
 
       theMapView.Map = _map;
-      //theMapControl.Initialize(_map);
       totalInfluenceView.Influence = _map.Influence;
-      //_tileToolTip.SetToolTip(theMapView.MapPanel, "boobs");
    }
 
    private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -41,15 +40,15 @@ public partial class MainForm : Form
       UserSettings.Default.MainForm_Size = Size;
    }
 
-   private void TheMapViewMouseSetOverCoordinate(object sender, MouseCoordinateEventArgs e)
+   private void TheMapViewMouseIndicateOverCoordinate(object sender, MouseCoordinateEventArgs e)
    {
-      Debug.WriteLine($"{nameof(TheMapViewMouseSetOverCoordinate)}: {e.Coordinate}");
-      tileInfluenceView.Influence = _map.Tiles[e.Coordinate.Col, e.Coordinate.Row].Influence;
+      Debug.WriteLine($"{nameof(TheMapViewMouseIndicateOverCoordinate)}: {e.Tile.Coordinate}");
+      theRealmTileInfoView.SetTileInfo(e.Tile);
    }
 
    private void theMapView_MouseClearOverCoordinate(object sender, EventArgs e)
    {
       Debug.WriteLine($"{nameof(theMapView_MouseClearOverCoordinate)}");
-      tileInfluenceView.Influence = new Influence();
+      theRealmTileInfoView.SetTileInfo(null);
    }
 }

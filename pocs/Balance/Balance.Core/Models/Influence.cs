@@ -11,7 +11,7 @@ public class Influence : IObservable<Influence>
 
    public Influence()
    {
-      foreach (var player in Enum.GetValues<Player>().ExcludeNone())
+      foreach (var player in Enum.GetValues<Player>().OnboardOnly())
       {
          _map[player] = 0;
       }

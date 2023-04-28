@@ -21,18 +21,25 @@ public class InfluenceRenderer : Renderer
       var rectWidth = ((float)clientRectangle.Width - _borderSize * 2) / PlayerCount;
       var height = (float)clientRectangle.Height - _borderSize * 2;
       int offset = 0;
-      foreach (var player in Enum.GetValues<Player>().ExcludeNone())
+      foreach (var player in Enum.GetValues<Player>().OnboardOnly())
       {
          var pct = influence.GetPercentage(player);
 
          var rect = new RectangleF(
-            _borderSize + rectWidth * offset,
-            _borderSize + height - height * pct,
+            clientRectangle.X + _borderSize + rectWidth * offset,
+            clientRectangle.Y + _borderSize + height - height * pct,
             rectWidth,
             height * pct);
 
          using var playerBrush = new SolidBrush(Globals.PlayerContext.GetPlayerColor(player));
          g.FillRectangle(playerBrush, rect);
+
+         using var textBrush = new SolidBrush(Color.Black);
+         using var font = new Font("Arial", 8);
+         var text = $"{pct:P}";
+         var textSize = g.MeasureString(text, font);
+         var textRect = new RectangleF(rect.X + (rect.Width - textSize.Width) / 2, rect.Bottom - textSize.Height, rect.Width, textSize.Height);
+         g.DrawString(text, font, textBrush, textRect);
 
          offset++;
       }

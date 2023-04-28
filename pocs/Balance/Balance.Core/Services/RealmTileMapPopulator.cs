@@ -159,7 +159,7 @@ public class RealmTileMapPopulator : IRealmTileMapPopulator
 
       public void Handle(RealmTileMap map, int maxAddedPerRealm)
       {
-         foreach (var player in Enum.GetValues<Player>().ExcludeNone())
+         foreach (var player in Enum.GetValues<Player>().OnboardOnly())
          {
             Reset(map, player);
             for (int i = 0; i < Count; i++)

@@ -200,7 +200,7 @@ public class RealmTileMap
    {
       var tiles = new List<RealmTile>();
 
-      var nonPlayers = Enum.GetValues<Player>().ExcludeNone().Where(_ => _ != player);
+      var nonPlayers = Enum.GetValues<Player>().OnboardOnly().Where(_ => _ != player);
       foreach (var nonPlayer in nonPlayers)
       {
          var quadrant = GetPlayerQuadrant(nonPlayer);

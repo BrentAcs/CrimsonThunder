@@ -35,8 +35,8 @@ public partial class RealmTileControl : UserControl, IObserver<RealmTile>
    {
       var g = e.Graphics;
       var rect = new Rectangle(Point.Empty, ClientSize);
-      using var pen = new Pen(Color.Black, Globals.TileRenderer.BorderSize);
-      g.DrawRoundedRectangle(pen, rect, Globals.TileRenderer.BorderSize);
+      using var pen = new Pen(Color.Black, Globals.TileRendererOptions.BorderSize);
+      g.DrawRoundedRectangle(pen, rect, Globals.TileRendererOptions.BorderSize);
    }
 
    public void OnCompleted() { }

@@ -28,12 +28,11 @@
       /// </summary>
       private void InitializeComponent()
       {
-         var mapDisplayOptions1 = new Controls.MapDisplayOptions();
-         var realmTileMap1 = new Core.Models.RealmTileMap();
+         var realmTileMap2 = new Core.Models.RealmTileMap();
          mainSplitContainer = new SplitContainer();
+         theRealmTileInfoView = new Controls.RealmTileInfoView();
          totalInfluenceView = new Controls.InfluenceView();
          theMapView = new Controls.RealmTileMapView();
-         tileInfluenceView = new Controls.InfluenceView();
          ((System.ComponentModel.ISupportInitialize)mainSplitContainer).BeginInit();
          mainSplitContainer.Panel1.SuspendLayout();
          mainSplitContainer.Panel2.SuspendLayout();
@@ -48,7 +47,7 @@
          // 
          // mainSplitContainer.Panel1
          // 
-         mainSplitContainer.Panel1.Controls.Add(tileInfluenceView);
+         mainSplitContainer.Panel1.Controls.Add(theRealmTileInfoView);
          mainSplitContainer.Panel1.Controls.Add(totalInfluenceView);
          // 
          // mainSplitContainer.Panel2
@@ -56,8 +55,16 @@
          mainSplitContainer.Panel2.AutoScroll = true;
          mainSplitContainer.Panel2.Controls.Add(theMapView);
          mainSplitContainer.Size = new Size(1153, 719);
-         mainSplitContainer.SplitterDistance = 384;
+         mainSplitContainer.SplitterDistance = 245;
          mainSplitContainer.TabIndex = 1;
+         // 
+         // theRealmTileInfoView
+         // 
+         theRealmTileInfoView.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+         theRealmTileInfoView.Location = new Point(12, 556);
+         theRealmTileInfoView.Name = "theRealmTileInfoView";
+         theRealmTileInfoView.Size = new Size(194, 151);
+         theRealmTileInfoView.TabIndex = 1;
          // 
          // totalInfluenceView
          // 
@@ -71,25 +78,14 @@
          // 
          theMapView.AutoScroll = true;
          theMapView.AutoSize = true;
-         mapDisplayOptions1.TileSize = new Size(64, 64);
-         theMapView.DisplayOptions = mapDisplayOptions1;
          theMapView.Dock = DockStyle.Fill;
          theMapView.Location = new Point(0, 0);
-         theMapView.Map = realmTileMap1;
+         theMapView.Map = realmTileMap2;
          theMapView.Name = "theMapView";
-         theMapView.Size = new Size(765, 719);
+         theMapView.Size = new Size(904, 719);
          theMapView.TabIndex = 0;
-         theMapView.MouseSetOverCoordinate += TheMapViewMouseSetOverCoordinate;
+         theMapView.MouseIndicateOverCoordinate += TheMapViewMouseIndicateOverCoordinate;
          theMapView.MouseClearOverCoordinate += theMapView_MouseClearOverCoordinate;
-         // 
-         // tileInfluenceView
-         // 
-         tileInfluenceView.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-         tileInfluenceView.Influence = null;
-         tileInfluenceView.Location = new Point(3, 576);
-         tileInfluenceView.Name = "tileInfluenceView";
-         tileInfluenceView.Size = new Size(150, 140);
-         tileInfluenceView.TabIndex = 1;
          // 
          // MainForm
          // 
@@ -113,6 +109,6 @@
       private SplitContainer mainSplitContainer;
       private Controls.InfluenceView totalInfluenceView;
       private Controls.RealmTileMapView theMapView;
-      private Controls.InfluenceView tileInfluenceView;
+      private Controls.RealmTileInfoView theRealmTileInfoView;
    }
 }

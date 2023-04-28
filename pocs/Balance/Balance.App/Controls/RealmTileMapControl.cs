@@ -50,7 +50,7 @@ public partial class RealmTileMapControl : UserControl
    {
       var controls = new List<RealmTileControl>();
       var scaleFactor = scale / 100.0;
-      var baseTileSize = Globals.TileRenderer.MapTileSize;
+      var baseTileSize = Globals.TileRendererOptions.MapTileSize;
       var tileSize = new Size((int)(baseTileSize.Width * scaleFactor), (int)(baseTileSize.Height * scaleFactor));
 
       for (int col = 0; col < _map.Width; col++)
